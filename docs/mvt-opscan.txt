@@ -1,0 +1,279 @@
+collision/all-pairs_ntsc.a26: reset=$F000 reached_insns=522 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+collision/blank-gating_ntsc.a26: reset=$F000 reached_insns=712 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+collision/blanked-reset_ntsc.a26: reset=$F000 reached_insns=558 findings=0
+collision/copy-adjacency_ntsc.a26: reset=$F000 reached_insns=650 findings=0
+collision/hmove-edge_ntsc.a26: reset=$F000 reached_insns=288 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $104A op=$04 len 2, reached via fall-through of $1048
+collision/latches_ntsc.a26: reset=$F000 reached_insns=286 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+collision/latency-swallow_ntsc.a26: reset=$F000 reached_insns=428 findings=5 sled@$1188+6
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1064 op=$04 len 2, reached via fall-through of $1062
+  UNDOC $1090 op=$04 len 2, reached via fall-through of $108E
+  UNDOC $1148 op=$04 len 2, reached via fall-through of $1146
+  UNDOC $1192 op=$04 len 2, reached via fall-through of $1191
+collision/merge-delivery-replant_ntsc.a26: reset=$F000 reached_insns=1910 findings=33
+  UNDOC $1074 op=$04 len 2, reached via fall-through of $1072
+  UNDOC $10B6 op=$04 len 2, reached via fall-through of $10B4
+  UNDOC $1120 op=$04 len 2, reached via fall-through of $111E
+  UNDOC $1162 op=$04 len 2, reached via fall-through of $1160
+  UNDOC $1175 op=$04 len 2, reached via fall-through of $1173
+  UNDOC $11CD op=$04 len 2, reached via fall-through of $11CB
+  UNDOC $120F op=$04 len 2, reached via fall-through of $120D
+  UNDOC $127A op=$04 len 2, reached via fall-through of $1278
+  UNDOC $12BC op=$04 len 2, reached via fall-through of $12BA
+  UNDOC $12CF op=$04 len 2, reached via fall-through of $12CD
+  UNDOC $1328 op=$04 len 2, reached via fall-through of $1326
+  UNDOC $136A op=$04 len 2, reached via fall-through of $1368
+  UNDOC $13D4 op=$04 len 2, reached via fall-through of $13D2
+  UNDOC $1416 op=$04 len 2, reached via fall-through of $1414
+  UNDOC $1429 op=$04 len 2, reached via fall-through of $1427
+  UNDOC $1481 op=$04 len 2, reached via fall-through of $147F
+  UNDOC $14C3 op=$04 len 2, reached via fall-through of $14C1
+  UNDOC $152E op=$04 len 2, reached via fall-through of $152C
+  UNDOC $1570 op=$04 len 2, reached via fall-through of $156E
+  UNDOC $1583 op=$04 len 2, reached via fall-through of $1581
+  UNDOC $15DC op=$04 len 2, reached via fall-through of $15DA
+  UNDOC $161E op=$04 len 2, reached via fall-through of $161C
+  UNDOC $1688 op=$04 len 2, reached via fall-through of $1686
+  UNDOC $16CA op=$04 len 2, reached via fall-through of $16C8
+  UNDOC $16DD op=$04 len 2, reached via fall-through of $16DB
+  UNDOC $1735 op=$04 len 2, reached via fall-through of $1733
+  UNDOC $1777 op=$04 len 2, reached via fall-through of $1775
+  UNDOC $17E2 op=$04 len 2, reached via fall-through of $17E0
+  UNDOC $1824 op=$04 len 2, reached via fall-through of $1822
+  UNDOC $1837 op=$04 len 2, reached via fall-through of $1835
+  UNDOC $1890 op=$04 len 2, reached via fall-through of $188E
+  UNDOC $18D2 op=$04 len 2, reached via fall-through of $18D0
+  UNDOC $18E5 op=$04 len 2, reached via fall-through of $18E3
+collision/merge-delivery-stretch_ntsc.a26: reset=$F000 reached_insns=1048 findings=6
+  UNDOC $1067 op=$04 len 2, reached via fall-through of $1065
+  UNDOC $110D op=$04 len 2, reached via fall-through of $110B
+  UNDOC $11B3 op=$04 len 2, reached via fall-through of $11B1
+  UNDOC $1259 op=$04 len 2, reached via fall-through of $1257
+  UNDOC $12FF op=$04 len 2, reached via fall-through of $12FD
+  UNDOC $13A5 op=$04 len 2, reached via fall-through of $13A3
+collision/merge-delivery-train_ntsc.a26: reset=$F000 reached_insns=865 findings=10
+  UNDOC $1077 op=$04 len 2, reached via fall-through of $1075
+  UNDOC $10E4 op=$04 len 2, reached via fall-through of $10E2
+  UNDOC $1103 op=$04 len 2, reached via fall-through of $1101
+  UNDOC $1184 op=$04 len 2, reached via fall-through of $1182
+  UNDOC $120B op=$04 len 2, reached via fall-through of $1209
+  UNDOC $1231 op=$04 len 2, reached via fall-through of $122F
+  UNDOC $124A op=$04 len 2, reached via fall-through of $1248
+  UNDOC $12B0 op=$04 len 2, reached via fall-through of $12AE
+  UNDOC $12CE op=$04 len 2, reached via fall-through of $12CC
+  UNDOC $133E op=$04 len 2, reached via fall-through of $133C
+collision/merge-delivery_ntsc.a26: reset=$F000 reached_insns=858 findings=1
+  UNDOC $1067 op=$04 len 2, reached via fall-through of $1065
+collision/onset-sweep_ntsc.a26: reset=$F000 reached_insns=284 findings=1 sled@$1057+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+collision/per-pixel_ntsc.a26: reset=$F000 reached_insns=360 findings=5
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1026 op=$04 len 2, reached via fall-through of $1024
+  UNDOC $103A op=$04 len 2, reached via fall-through of $1038
+  UNDOC $1084 op=$04 len 2, reached via fall-through of $1082
+  UNDOC $10CA op=$04 len 2, reached via fall-through of $10C8
+collision/resbl-kill_ntsc.a26: reset=$F000 reached_insns=413 findings=0
+collision/reset-phase_ntsc.a26: reset=$F000 reached_insns=385 findings=0
+collision/stuck-drift_ntsc.a26: reset=$F000 reached_insns=293 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1030 op=$04 len 2, reached via fall-through of $102E
+  UNDOC $105C op=$04 len 2, reached via fall-through of $105A
+cpu/floating-bus_ntsc.a26: reset=$F000 reached_insns=193 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+cpu/open-bus_ntsc.a26: reset=$F000 reached_insns=212 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+cpu/partial-drive_ntsc.a26: reset=$F000 reached_insns=273 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1053 op=$04 len 2, reached via fall-through of $1051
+cpu/rmw-strobe_ntsc.a26: reset=$F000 reached_insns=316 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1059 op=$04 len 2, reached via fall-through of $1057
+  UNDOC $1091 op=$04 len 2, reached via fall-through of $108F
+cpu/rmw-wsync_ntsc.a26: reset=$F000 reached_insns=208 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+cpu/stack-aliases-ram_ntsc.a26: reset=$F000 reached_insns=201 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+cpu/stack-aliases-tia_ntsc.a26: reset=$F000 reached_insns=301 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1026 op=$04 len 2, reached via fall-through of $1024
+  UNDOC $1037 op=$04 len 2, reached via fall-through of $1035
+harness/calibration_ntsc.a26: reset=$F000 reached_insns=145 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $103E op=$04 len 2, reached via fall-through of $103C
+  UNDOC $1062 op=$04 len 2, reached via branch at $103C
+harness/sanity_ntsc.a26: reset=$F000 reached_insns=65 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/io-mirrors_ntsc.a26: reset=$F000 reached_insns=205 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/io-output_ntsc.a26: reset=$F000 reached_insns=211 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/io-ports_ntsc.a26: reset=$F000 reached_insns=199 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/pa7-edge_ntsc.a26: reset=$F000 reached_insns=255 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/pa7-polarity_ntsc.a26: reset=$F000 reached_insns=275 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/ram-mirrors_ntsc.a26: reset=$F000 reached_insns=197 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/ram_ntsc.a26: reset=$F000 reached_insns=235 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/timer-divisors_ntsc.a26: reset=$F000 reached_insns=223 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/timer-underflow-read_ntsc.a26: reset=$F000 reached_insns=206 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/timer-vblank-spin_ntsc.a26: reset=$F000 reached_insns=236 findings=1 sled@$102B+8
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+riot/timer_ntsc.a26: reset=$F000 reached_insns=229 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/colors_ntsc.a26: reset=$F000 reached_insns=52 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/draw-delay_ntsc.a26: reset=$F000 reached_insns=279 findings=11
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1023 op=$04 len 2, reached via fall-through of $1021
+  UNDOC $1039 op=$04 len 2, reached via fall-through of $1037
+  UNDOC $104F op=$04 len 2, reached via fall-through of $104D
+  UNDOC $1065 op=$04 len 2, reached via fall-through of $1063
+  UNDOC $107B op=$04 len 2, reached via fall-through of $1079
+  UNDOC $10BF op=$04 len 2, reached via fall-through of $10BD
+  UNDOC $10D5 op=$04 len 2, reached via fall-through of $10D3
+  UNDOC $10EB op=$04 len 2, reached via fall-through of $10E9
+  UNDOC $1104 op=$04 len 2, reached via fall-through of $1102
+  UNDOC $1120 op=$04 len 2, reached via fall-through of $111E
+tia-render/missile-copies_ntsc.a26: reset=$F000 reached_insns=451 findings=1 sled@$105C+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/missile-reset-lock_ntsc.a26: reset=$F000 reached_insns=296 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $103B op=$04 len 2, reached via fall-through of $1039
+tia-render/missiles-ball_ntsc.a26: reset=$F000 reached_insns=396 findings=5
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1022 op=$04 len 2, reached via fall-through of $1020
+  UNDOC $10C7 op=$04 len 2, reached via fall-through of $10C5
+  UNDOC $110F op=$04 len 2, reached via fall-through of $110D
+  UNDOC $1157 op=$04 len 2, reached via fall-through of $1155
+tia-render/nusiz_ntsc.a26: reset=$F000 reached_insns=346 findings=1 sled@$1059+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/object-priority_ntsc.a26: reset=$F000 reached_insns=99 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1030 op=$04 len 2, reached via fall-through of $102E
+tia-render/pf-priority_ntsc.a26: reset=$F000 reached_insns=76 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $102C op=$04 len 2, reached via fall-through of $102A
+tia-render/player-reflect_ntsc.a26: reset=$F000 reached_insns=309 findings=1 sled@$1068+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/players_ntsc.a26: reset=$F000 reached_insns=286 findings=1 sled@$105B+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/playfield-reflect_ntsc.a26: reset=$F000 reached_insns=314 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $102C op=$04 len 2, reached via fall-through of $102A
+tia-render/playfield_ntsc.a26: reset=$F000 reached_insns=271 findings=1 sled@$104C+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/positioning_ntsc.a26: reset=$F000 reached_insns=288 findings=1 sled@$105D+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/score-mode_ntsc.a26: reset=$F000 reached_insns=58 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-render/vertical-delay_ntsc.a26: reset=$F000 reached_insns=308 findings=1 sled@$106C+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/hmove-apply_ntsc.a26: reset=$F000 reached_insns=298 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $102C op=$04 len 2, reached via fall-through of $102A
+  UNDOC $10CC op=$04 len 2, reached via fall-through of $10CA
+tia-timing/hmove-comb_ntsc.a26: reset=$F000 reached_insns=54 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/hmove-late_ntsc.a26: reset=$F000 reached_insns=107 findings=2 sled@$104D+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $102A op=$04 len 2, reached via fall-through of $1028
+tia-timing/hmove-line-aligned_ntsc.a26: reset=$F000 reached_insns=296 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1026 op=$04 len 2, reached via fall-through of $1024
+  UNDOC $103C op=$04 len 2, reached via fall-through of $103A
+tia-timing/hmove-line-end_ntsc.a26: reset=$F000 reached_insns=153 findings=2 sled@$1075+33
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1066 op=$04 len 2, reached via fall-through of $1064
+tia-timing/hmove-live-reach_ntsc.a26: reset=$F000 reached_insns=123 findings=1 sled@$1044+28
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/hmove-live-seam_ntsc.a26: reset=$F000 reached_insns=116 findings=1 sled@$1044+21
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/hmove-reset-merge_ntsc.a26: reset=$F000 reached_insns=260 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1046 op=$04 len 2, reached via fall-through of $1044
+tia-timing/hmove-rewrite-race_ntsc.a26: reset=$F000 reached_insns=116 findings=1 sled@$1066+8
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/hmove-strobe-line_ntsc.a26: reset=$F000 reached_insns=102 findings=2 sled@$1049+16
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1026 op=$04 len 2, reached via fall-through of $1024
+tia-timing/hmove-stuck-grid_ntsc.a26: reset=$F000 reached_insns=130 findings=4
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1022 op=$04 len 2, reached via fall-through of $1020
+  UNDOC $105D op=$04 len 2, reached via fall-through of $105B
+  UNDOC $107E op=$04 len 2, reached via fall-through of $107C
+tia-timing/hmove-stuck-latch_ntsc.a26: reset=$F000 reached_insns=98 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1022 op=$04 len 2, reached via fall-through of $1020
+  UNDOC $1042 op=$04 len 2, reached via fall-through of $1040
+tia-timing/hmove-stuck-player_ntsc.a26: reset=$F000 reached_insns=87 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1022 op=$04 len 2, reached via fall-through of $1020
+  UNDOC $1042 op=$04 len 2, reached via fall-through of $1040
+tia-timing/hmove-stuck-release_ntsc.a26: reset=$F000 reached_insns=106 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $102D op=$04 len 2, reached via fall-through of $102B
+  UNDOC $104D op=$04 len 2, reached via fall-through of $104B
+tia-timing/hmove-stuck-straddle_ntsc.a26: reset=$F000 reached_insns=87 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1022 op=$04 len 2, reached via fall-through of $1020
+  UNDOC $1042 op=$04 len 2, reached via fall-through of $1040
+tia-timing/hmove-stuck-stretch_ntsc.a26: reset=$F000 reached_insns=99 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $104F op=$04 len 2, reached via fall-through of $104D
+tia-timing/hmove-stuck-widths_ntsc.a26: reset=$F000 reached_insns=135 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $107C op=$04 len 2, reached via fall-through of $107A
+tia-timing/hmove-values_ntsc.a26: reset=$F000 reached_insns=82 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/hmove-walk_ntsc.a26: reset=$F000 reached_insns=259 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1034 op=$04 len 2, reached via fall-through of $1032
+tia-timing/midline-color_ntsc.a26: reset=$F000 reached_insns=73 findings=1 sled@$102A+12
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/midline-grp_ntsc.a26: reset=$F000 reached_insns=87 findings=2 sled@$1046+6
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $101E op=$04 len 2, reached via fall-through of $101C
+tia-timing/midline-pf_ntsc.a26: reset=$F000 reached_insns=79 findings=1 sled@$103E+8
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/midline-resp_ntsc.a26: reset=$F000 reached_insns=80 findings=1 sled@$103A+12
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/midline-vblank_ntsc.a26: reset=$F000 reached_insns=77 findings=1 sled@$103A+8
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+tia-timing/nusiz-draw_ntsc.a26: reset=$F000 reached_insns=68 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1022 op=$04 len 2, reached via fall-through of $1020
+tia-timing/reset-same-line_ntsc.a26: reset=$F000 reached_insns=352 findings=3
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1055 op=$04 len 2, reached via fall-through of $1053
+  UNDOC $10B1 op=$04 len 2, reached via fall-through of $10AF
+tia-timing/resp-restrobe_ntsc.a26: reset=$F000 reached_insns=803 findings=9
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1051 op=$04 len 2, reached via fall-through of $104F
+  UNDOC $10E1 op=$04 len 2, reached via fall-through of $10DF
+  UNDOC $1134 op=$04 len 2, reached via fall-through of $1132
+  UNDOC $11C4 op=$04 len 2, reached via fall-through of $11C2
+  UNDOC $11EC op=$04 len 2, reached via fall-through of $11EA
+  UNDOC $1212 op=$04 len 2, reached via fall-through of $1210
+  UNDOC $1296 op=$04 len 2, reached via fall-through of $1294
+  UNDOC $1349 op=$04 len 2, reached via fall-through of $1347
+tia-timing/rsync_ntsc.a26: reset=$F000 reached_insns=293 findings=2
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $109D op=$04 len 2, reached via fall-through of $109B
+tia-timing/wsync-line-end_ntsc.a26: reset=$F000 reached_insns=552 findings=5
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
+  UNDOC $1077 op=$04 len 2, reached via fall-through of $1074
+  UNDOC $10D5 op=$04 len 2, reached via fall-through of $10D2
+  UNDOC $1135 op=$04 len 2, reached via fall-through of $1132
+  UNDOC $1197 op=$04 len 2, reached via fall-through of $1194
+tia-timing/wsync_ntsc.a26: reset=$F000 reached_insns=194 findings=1
+  UNDOC $1002 op=$AB len 2, reached via fall-through of $1001
