@@ -1,6 +1,6 @@
 # Coverage: spec behaviour -> test (RIOT, `m6532`)
 
-Spec: `docs/spec.md` draft v0.2, §2.2, §7, §8.2 R1–R3. Testbench: `tb/m6532/tb.sv` (run: `make test BLOCK=m6532`, or `.toolchain/scripts/run_tests.sh m6532`). Every expected value is taken from the spec. Nothing here is "passing against the RTL" until a log under `logs/` says so: Ada's RTL (`rtl/m6532.v`, #3) is not on main yet. `logs/m6532-tb-selfcheck.log` only shows that the testbench itself runs and catches seeded faults (see the end of this file).
+Spec: `docs/spec.md` draft v0.2, §2.2, §7, §8.2 R1–R3. Testbench: `tb/m6532/tb.sv` (run: `make test BLOCK=m6532`, or `.toolchain/scripts/run_tests.sh m6532`). Every expected value is taken from the spec. Run against Ada's RTL (`rtl/datapath/m6532.v`, #9, on main): `logs/m6532-tb-rtl.log`. `logs/m6532-tb-selfcheck.log` shows the testbench catching mutants of that RTL (see the end of this file).
 
 Check names below are the prefixes of the `ok`/`FAIL` lines in the run log.
 
@@ -16,7 +16,7 @@ Check names below are the prefixes of the `ok`/`FAIL` lines in the run log.
 | §7.1 | A4/A3 are don't-care for ORA/DDRA/ORB/DDRB (table has no A4/A3 entry for A2 = 0) | `R1 DDRB written via +08/+10/+18` and the ORB/DDRA rows | written, derived from the table |
 | §2.2 | `res_n`: DDRA/DDRB/ORA/ORB zero; data bus floats; negative edge, PA7 interrupt disabled | `R1 reset: …`, `R1 res_n=0: d_oe floats` | written |
 | §2.2 | `res_n` leaves RAM and timer alone (*Decision*) | `R1 reset leaves RAM`, `R1 reset leaves timer running` | written |
-| §7.2 | Timer value at pulses 1, 2, D, D+1, D+2, mid, N·D−1, N·D, N·D+1 for D = 1, 8, 64, 1024 and N = 0, 1, 37, 255 | `R2 N=… /… INTIM at pulse …` | written |
+| §7.2 | Timer value at pulses 1, 2, D, D+1, D+2, mid, N·D−1, N·D, N·D+1 for D = 1, 8, 64, 1024 and N = 0, 1, 37, 255 (only points ≤ N·D+1 in the one run; a read at N·D+2 ends the free-run, so it is tested on its own) | `R2 N=… /… INTIM at pulse …` | written |
 | §7.2 | Read on pulse N·D+1 returns `$FF` and leaves the flag set | `R2 … read on underflow pulse`, `R2 … flag still set after read at underflow pulse` | written |
 | §7.2 | Read on pulse N·D+2 returns `$FE` and clears the flag | `R2 … read at N*D+2 returns FE`, `R2 … flag cleared by read at N*D+2` | written |
 | §7.2 | Flag clear at pulse N·D, set at N·D+1 (flag-register read) | `R2 … flag clear at pulse N*D`, `R2 … flag set at pulse N*D+1` | written; the N·D+1 row reads the flag on the pulse it sets, derived from the "read leaves the flag set" evidence |
@@ -27,7 +27,11 @@ Check names below are the prefixes of the `ok`/`FAIL` lines in the run log.
 | §7.2 [check] | ÷1 free-run to 200 pulses past underflow (settled) | `R2 /1 free-run, j past underflow` | written |
 | §7.2 [check] | ÷1 at 255/256/257/300+ pulses past underflow | `REPORT /1 N=5 …` lines, nothing asserted | **report only**, to file on turichips#48 |
 | §7.2 [check] | Pulse on which ÷D resumes after a post-underflow read (÷8: 20 pulses, ÷64: 70 pulses) | `REPORT resume /8`, `REPORT resume /64` lines | **report only**, to file on turichips#48 |
-| §7.2 [check] | Does a timer read with A3 = 1 change the timer IRQ enable | `REPORT after INTIM read via A3=1 address` | **report only** |
+| §7.2 [check] | Does a timer read's A3 change the timer IRQ enable (read before the underflow, both directions) | `REPORT irq_n after underflow: write A3=…, INTIM read at A3=…` (3 lines) | **report only** |
+| §2.2, §7.1 | `d_oe` = 1 on every selected read (ORA, DDRA, ORB, DDRB, INTIM, flags), 0 on every write | `R1 d_oe=1 on …`, `R2 d_oe=1 on …`, `R1/R2/R3 d_oe=0 on … write` | written |
+| §7.1 | A4 = 0 writes are edge control only, never load the timer (A3, A1, A0, data varied) | `R2 edge-control write (…) does not load the timer` | written |
+| §7.1 | INTIM read: A4, A3, A1 don't-care; same value, flag cleared, bus driven | `R2 INTIM read via XX value/d_oe/clears the timer flag` (8 addresses) | written |
+| §7.1 | Flag register read: A4, A3, A1 don't-care; D7/D6 correct; clears PA7 flag only | `R2/R3 flag read via XX …`, `R3 flag read via XX cleared PA7 flag…` (8 addresses) | written |
 | §7.4 | PA7 active edge sets the flag, enabled and disabled, both polarities | `R3 PA7 active edge sets the flag` (4 configurations) | written |
 | §7.4 | PA7 inactive edge does not set the flag; second edge sets again; other pins moving do not | `R3 PA7 inactive edge…`, `R3 second active edge…`, `R3 other pins…` | written |
 | §7.4 | PA7 edge counts when PA7 is an output (ORA write) | `R3 PA7 output: …` | written |
@@ -39,9 +43,10 @@ Check names below are the prefixes of the `ok`/`FAIL` lines in the run log.
 - Electrical timing (RIOT DS pp.3–5): out of scope (§1).
 - The 1 clock inside a Φ2 cycle at which `irq_n` and the port outputs change: the testbench samples them after the cycle, with a margin of one or more pulses where the spec is silent.
 - Pulse-exact `irq_n` at N·D+1: only sampled with margin.
-- Timer read with A3 = 1: observed only (§7.2 [check]).
+- Timer read's A3 effect on the IRQ enable: observed only (§7.2 [check]).
+- A5/A6 on the INTIM and flag reads: not in the table; Beru's random harness covers them.
 - A5/A6 on the I/O registers: the §7.1 table has no column for them, so no mirror test.
 - Core-copy tests ($04, $AB #0, `ce` = 0 hold, chip-6502 suite with `ce` = 1): waiting on Zura's PR (#2); tracked on issue #4.
 
-## Testbench self-check (no RTL yet)
-Titus wrote a throw-away model of §7 (not committed) and ran the testbench on it to check the harness, then seeded faults. Results in `logs/m6532-tb-selfcheck.log`. This is a check of the tests, not evidence about Ada's design.
+## Testbench self-check
+The testbench passes on Ada's RTL (`logs/m6532-tb-rtl.log`). Mutants of that RTL, run on the unchanged testbench, are in `logs/m6532-tb-selfcheck.log`. The earlier self-check used a scratch model that did not implement "a read after underflow ends the free-run" (Beru's review of #10); it is dropped.

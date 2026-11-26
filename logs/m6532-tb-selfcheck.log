@@ -1,14 +1,8 @@
-# m6532 testbench self-check (no RTL). Scratch model of spec 7 written by Titus, not committed.
-# Clean model:
-checks: 3232, errors: 0, cycles: 1299604
-PASS
-# Seeded faults (result of tb run on each mutant):
-portB-pins: FAIL: 2 of 3232 checks
-v01-timer: FAIL: 12 of 3232 checks
-flagread-clears-timer: FAIL: 20 of 3232 checks
-porta-OR: FAIL: 1 of 3232 checks
-reset-ram: PASS
-ddr-noreset: FAIL: 2 of 3232 checks
-hold-ce: FAIL: 1 of 3232 checks
-# reset-ram: mutant cleared only ram[0]; the tb checks RAM[0x20], so PASS here is a weak mutant, not proof the tb misses a RAM reset (R1 reset reads one byte).
-# no-both-edges mutant: not run (run hit its time limit).
+# m6532 tb mutants: one-line mutants of rtl/datapath/m6532.v (main b2d49e2), tb/m6532/tb.sv unchanged
+# clean RTL: checks: 3305, errors: 0, cycles: 1299344 -> PASS (logs/m6532-tb-rtl.log)
+doe: FAIL: 23 of 3305 checks
+twr: FAIL: 16 of 3305 checks
+trd: FAIL: 4 of 3305 checks
+ewr: FAIL: 3 of 3305 checks
+# doe: d_oe only on RAM reads. twr: t_wr ignores A4. trd: INTIM read needs A1=0. ewr: e_wr ignores A4.
+# Mutants are Beru's list from the review of #10 (same four).

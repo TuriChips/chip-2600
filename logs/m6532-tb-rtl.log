@@ -1,0 +1,99 @@
+m6532 testbench: spec docs/spec.md 2.2, 7, 8.2 R1-R3
+== R1 RAM
+== R1 ports, DDRs, port B read rule
+== R1 res_n
+== R2 values N=0 /1 (N*D=0)
+== R2 values N=1 /1 (N*D=1)
+== R2 values N=37 /1 (N*D=37)
+== R2 values N=255 /1 (N*D=255)
+== R2 values N=0 /8 (N*D=0)
+== R2 values N=1 /8 (N*D=8)
+== R2 values N=37 /8 (N*D=296)
+== R2 values N=255 /8 (N*D=2040)
+== R2 values N=0 /64 (N*D=0)
+== R2 values N=1 /64 (N*D=64)
+== R2 values N=37 /64 (N*D=2368)
+== R2 values N=255 /64 (N*D=16320)
+== R2 values N=0 /1024 (N*D=0)
+== R2 values N=1 /1024 (N*D=1024)
+== R2 values N=37 /1024 (N*D=37888)
+== R2 values N=255 /1024 (N*D=261120)
+== R2 flag clear on write and on read, ce hold
+== R1/R2 d_oe on I/O reads, A4 on writes, A1/A3/A4 mirrors on reads
+== R2 [check] items: report only
+REPORT /1 N=5 pulse 6 (0 past underflow): INTIM=0xff expected-by-5-formula=0xff flag=1
+REPORT /1 N=5 pulse 7 (1 past underflow): INTIM=0xfe expected-by-5-formula=0xfe flag=0
+REPORT /1 N=5 pulse 106 (100 past underflow): INTIM=0x9b expected-by-5-formula=0x9b flag=0
+REPORT /1 N=5 pulse 206 (200 past underflow): INTIM=0x37 expected-by-5-formula=0x37 flag=0
+REPORT /1 N=5 pulse 261 (255 past underflow): INTIM=0x00 expected-by-5-formula=0x00 flag=1
+REPORT /1 N=5 pulse 262 (256 past underflow): INTIM=0xff expected-by-5-formula=0xff flag=1
+REPORT /1 N=5 pulse 263 (257 past underflow): INTIM=0xfe expected-by-5-formula=0xfe flag=0
+REPORT /1 N=5 pulse 316 (310 past underflow): INTIM=0xc9 expected-by-5-formula=0xc9 flag=0
+REPORT /1 N=5 300 past underflow: INTIM=0xd3
+REPORT /1 N=5 311 past underflow: INTIM=0xc8
+REPORT /1 N=5 400 past underflow: INTIM=0x6f
+REPORT /1 N=5 520 past underflow: INTIM=0xf7
+REPORT resume /8 N=2: read at N*D+2 then at +1 pulses: INTIM=0xfe  (free-run would give 0xfd)
+REPORT resume /8 N=2: read at N*D+2 then at +2 pulses: INTIM=0xfe  (free-run would give 0xfc)
+REPORT resume /8 N=2: read at N*D+2 then at +3 pulses: INTIM=0xfe  (free-run would give 0xfb)
+REPORT resume /8 N=2: read at N*D+2 then at +4 pulses: INTIM=0xfe  (free-run would give 0xfa)
+REPORT resume /8 N=2: read at N*D+2 then at +5 pulses: INTIM=0xfe  (free-run would give 0xf9)
+REPORT resume /8 N=2: read at N*D+2 then at +6 pulses: INTIM=0xfe  (free-run would give 0xf8)
+REPORT resume /8 N=2: read at N*D+2 then at +7 pulses: INTIM=0xfd  (free-run would give 0xf7)
+REPORT resume /8 N=2: read at N*D+2 then at +8 pulses: INTIM=0xfd  (free-run would give 0xf6)
+REPORT resume /8 N=2: read at N*D+2 then at +9 pulses: INTIM=0xfd  (free-run would give 0xf5)
+REPORT resume /8 N=2: read at N*D+2 then at +10 pulses: INTIM=0xfd  (free-run would give 0xf4)
+REPORT resume /8 N=2: read at N*D+2 then at +11 pulses: INTIM=0xfd  (free-run would give 0xf3)
+REPORT resume /8 N=2: read at N*D+2 then at +12 pulses: INTIM=0xfd  (free-run would give 0xf2)
+REPORT resume /8 N=2: read at N*D+2 then at +13 pulses: INTIM=0xfd  (free-run would give 0xf1)
+REPORT resume /8 N=2: read at N*D+2 then at +14 pulses: INTIM=0xfd  (free-run would give 0xf0)
+REPORT resume /8 N=2: read at N*D+2 then at +15 pulses: INTIM=0xfc  (free-run would give 0xef)
+REPORT resume /8 N=2: read at N*D+2 then at +16 pulses: INTIM=0xfc  (free-run would give 0xee)
+REPORT resume /8 N=2: read at N*D+2 then at +17 pulses: INTIM=0xfc  (free-run would give 0xed)
+REPORT resume /8 N=2: read at N*D+2 then at +18 pulses: INTIM=0xfc  (free-run would give 0xec)
+REPORT resume /8 N=2: read at N*D+2 then at +19 pulses: INTIM=0xfc  (free-run would give 0xeb)
+REPORT resume /8 N=2: read at N*D+2 then at +20 pulses: INTIM=0xfc  (free-run would give 0xea)
+REPORT resume /64 N=2: read at N*D+2 then at +1 pulses: INTIM=0xfe  (free-run would give 0xfd)
+REPORT resume /64 N=2: read at N*D+2 then at +4 pulses: INTIM=0xfe  (free-run would give 0xfa)
+REPORT resume /64 N=2: read at N*D+2 then at +7 pulses: INTIM=0xfe  (free-run would give 0xf7)
+REPORT resume /64 N=2: read at N*D+2 then at +10 pulses: INTIM=0xfe  (free-run would give 0xf4)
+REPORT resume /64 N=2: read at N*D+2 then at +13 pulses: INTIM=0xfe  (free-run would give 0xf1)
+REPORT resume /64 N=2: read at N*D+2 then at +16 pulses: INTIM=0xfe  (free-run would give 0xee)
+REPORT resume /64 N=2: read at N*D+2 then at +19 pulses: INTIM=0xfe  (free-run would give 0xeb)
+REPORT resume /64 N=2: read at N*D+2 then at +22 pulses: INTIM=0xfe  (free-run would give 0xe8)
+REPORT resume /64 N=2: read at N*D+2 then at +25 pulses: INTIM=0xfe  (free-run would give 0xe5)
+REPORT resume /64 N=2: read at N*D+2 then at +28 pulses: INTIM=0xfe  (free-run would give 0xe2)
+REPORT resume /64 N=2: read at N*D+2 then at +31 pulses: INTIM=0xfe  (free-run would give 0xdf)
+REPORT resume /64 N=2: read at N*D+2 then at +34 pulses: INTIM=0xfe  (free-run would give 0xdc)
+REPORT resume /64 N=2: read at N*D+2 then at +37 pulses: INTIM=0xfe  (free-run would give 0xd9)
+REPORT resume /64 N=2: read at N*D+2 then at +40 pulses: INTIM=0xfe  (free-run would give 0xd6)
+REPORT resume /64 N=2: read at N*D+2 then at +43 pulses: INTIM=0xfe  (free-run would give 0xd3)
+REPORT resume /64 N=2: read at N*D+2 then at +46 pulses: INTIM=0xfe  (free-run would give 0xd0)
+REPORT resume /64 N=2: read at N*D+2 then at +49 pulses: INTIM=0xfe  (free-run would give 0xcd)
+REPORT resume /64 N=2: read at N*D+2 then at +52 pulses: INTIM=0xfe  (free-run would give 0xca)
+REPORT resume /64 N=2: read at N*D+2 then at +55 pulses: INTIM=0xfe  (free-run would give 0xc7)
+REPORT resume /64 N=2: read at N*D+2 then at +58 pulses: INTIM=0xfe  (free-run would give 0xc4)
+REPORT resume /64 N=2: read at N*D+2 then at +61 pulses: INTIM=0xfe  (free-run would give 0xc1)
+REPORT resume /64 N=2: read at N*D+2 then at +64 pulses: INTIM=0xfd  (free-run would give 0xbe)
+REPORT resume /64 N=2: read at N*D+2 then at +67 pulses: INTIM=0xfd  (free-run would give 0xbb)
+REPORT resume /64 N=2: read at N*D+2 then at +70 pulses: INTIM=0xfd  (free-run would give 0xb8)
+REPORT irq_n after underflow with enable written via A3=1 write: 0 (expected 0)
+REPORT after INTIM read via A3=1 address: flag cleared, irq_n=1
+REPORT irq_n after underflow: write A3=0, INTIM read at A3=1 before underflow: 1 (0 = the read set the enable)
+REPORT irq_n after underflow: write A3=1, INTIM read at A3=0 before underflow: 0 (1 = the read cleared the enable)
+REPORT irq_n after underflow: write A3=1, INTIM read at A3=1 before underflow: 0 (expected 0)
+== R3 PA7 as input, enable=0 edge=negative
+== R3 PA7 as input, enable=0 edge=positive
+== R3 PA7 as input, enable=1 edge=negative
+== R3 PA7 as input, enable=1 edge=positive
+== R3 PA7 as output, edge=negative
+== R3 PA7 as output, edge=positive
+== R3 polarity change does not set the flag (ruled 2026-11-26, MVT riot/pa7-polarity)
+== R3 irq_n for each source
+checks: 3305, errors: 0, cycles: 1299344
+PASS
+- /home/turichips/tasks/titus/chip-2600-4/tb/m6532/tb.sv:554: Verilog $finish
+
+real	0m0.628s
+user	0m0.613s
+sys	0m0.007s

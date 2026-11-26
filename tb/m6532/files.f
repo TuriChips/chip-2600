@@ -2,5 +2,5 @@
 -Wno-WIDTHTRUNC
 -Wno-TIMESCALEMOD
 -Wno-UNUSEDSIGNAL
-rtl/m6532.v
+rtl/datapath/m6532.v
 tb/m6532/tb.sv

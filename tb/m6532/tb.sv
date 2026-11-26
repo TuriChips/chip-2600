@@ -239,14 +239,15 @@ module tb;
   task automatic r2_values(input int n, input int sel);
     int d, nd, ks[12];
     d = divisor(sel); nd = n * d;
-    // INTIM reads at ascending pulses <= N*D+1 in one run (they do not disturb the timer)
+    // INTIM reads at ascending pulses <= N*D+1 in one run (a read at or before N*D+1 does not disturb the timer)
     ks = '{1, 2, d, d + 1, d + 2, nd / 2 + 1, nd - 1, nd, nd + 1, 0, 0, 0};
     $display("== R2 values N=%0d /%0d (N*D=%0d)", n, d, nd);
     hw_reset(); wio(A_DDRA, 8'h00);
     verbose = 0;
     tim_write(n, sel, 0);
     for (int i = 0; i < 9; i++) begin
-      if (ks[i] >= pulse && ks[i] >= 1 && (i == 0 || ks[i] > ks[i-1])) begin
+      // reads past N*D+1 are left out: the read at N*D+2 ends the free-run (spec 7.2), and it has its own check below
+      if (ks[i] >= pulse && ks[i] >= 1 && ks[i] <= nd + 1 && (i == 0 || ks[i] > ks[i-1])) begin
         goto_pulse(ks[i]);
         rio(A_INTIM);
         chk($sformatf("R2 N=%0d /%0d INTIM at pulse %0d", n, d, ks[i]), rd, intim_exp(n, d, ks[i]));
@@ -344,8 +345,83 @@ module tb;
     $display("REPORT irq_n after underflow with enable written via A3=1 write: %0b (expected 0)", irq);
     rio(A_INTIM | 7'h08);
     $display("REPORT after INTIM read via A3=1 address: flag cleared, irq_n=%0b", irq);
-    tim_write(3, 0, 1); goto_pulse(3 + 6); rio(A_INTIM);   // read via A3=0 after an A3=1 write
+    // probes that tell the answers apart: the timer read happens BEFORE the underflow, so the read itself cannot
+    // clear the flag later; irq_n after the underflow shows which A3 the enable came from
+    hw_reset(); verbose = 0;
+    tim_write(3, 0, 0); goto_pulse(2); rio(A_INTIM | 7'h08); goto_pulse(10);
+    $display("REPORT irq_n after underflow: write A3=0, INTIM read at A3=1 before underflow: %0b (0 = the read set the enable)", irq);
+    hw_reset();
+    tim_write(3, 0, 1); goto_pulse(2); rio(A_INTIM); goto_pulse(10);
+    $display("REPORT irq_n after underflow: write A3=1, INTIM read at A3=0 before underflow: %0b (1 = the read cleared the enable)", irq);
+    hw_reset();
+    tim_write(3, 0, 1); goto_pulse(2); rio(A_INTIM | 7'h08); goto_pulse(10);
+    $display("REPORT irq_n after underflow: write A3=1, INTIM read at A3=1 before underflow: %0b (expected 0)", irq);
     verbose = 1;
+  endtask
+
+
+  // ------------------------------------------------------------ R1/R2: bus drive and address mirrors (spec 7.1)
+  task automatic pa7_ctl_a(input bit a3, input bit en, input bit pos, input logic [7:0] dd);   // A4=0, A3 free
+    wio({3'b000, a3, 1'b1, en, pos}, dd);
+  endtask
+  task automatic r1_bus_mirrors();
+    int tf, pf;
+    logic [6:0] ad;
+    $display("== R1/R2 d_oe on I/O reads, A4 on writes, A1/A3/A4 mirrors on reads");
+    hw_reset(); quiet_timer(); wio(A_DDRA, 8'h00);
+    // d_oe: 1 on every selected read, 0 on every write
+    rio(A_ORA);   chk("R1 d_oe=1 on ORA read", oe, 1);
+    rio(A_DDRA);  chk("R1 d_oe=1 on DDRA read", oe, 1);
+    rio(A_ORB);   chk("R1 d_oe=1 on ORB read", oe, 1);
+    rio(A_DDRB);  chk("R1 d_oe=1 on DDRB read", oe, 1);
+    rio(A_INTIM); chk("R2 d_oe=1 on INTIM read", oe, 1);
+    rio(A_FLAGS); chk("R2 d_oe=1 on flag register read", oe, 1);
+    rio(A_INTIM | 7'h18); chk("R2 d_oe=1 on INTIM read via A4,A3", oe, 1);
+    wio(A_ORA, 8'h00);   chk("R1 d_oe=0 on ORA write", oe, 0);
+    wio(A_DDRB, 8'h00);  chk("R1 d_oe=0 on DDRB write", oe, 0);
+    tim_write(100, 1, 0); chk("R2 d_oe=0 on timer write", oe, 0);
+    pa7_ctl(0, 0);       chk("R3 d_oe=0 on edge-control write", oe, 0);
+    // A4=0 selects edge control, never the timer, whatever A3 and the data: INTIM keeps following the timer write
+    for (int a3 = 0; a3 < 2; a3++) for (int dv = 0; dv < 2; dv++) for (int en = 0; en < 2; en++) for (int pos = 0; pos < 2; pos++) begin
+      verbose = 0;
+      tim_write(200, 3, 0); idle(3);
+      pa7_ctl_a(a3[0], en[0], pos[0], dv ? 8'hFF : 8'h00);
+      idle(2);
+      pa7_ctl(0, 0);   // leave the edge control quiet for the next round
+      rio(A_INTIM);
+      chk($sformatf("R2 edge-control write (A3=%0d A1=%0d A0=%0d data=%0d) does not load the timer", a3, en, pos, dv),
+          rd, intim_exp(200, 1024, pulse - 1));
+      verbose = 1;
+    end
+    // timer reads: A1 and A4 (and A3) are don't-care (spec 7.1), same value, same side effect (flag cleared)
+    for (int m = 0; m < 8; m++) begin
+      ad = A_INTIM | {2'b00, m[2], m[1], 1'b0, m[0], 1'b0};   // m2 = A4, m1 = A3, m0 = A1
+      verbose = 0;
+      tim_write(3, 1, 0); goto_pulse(40);                      // underflow at pulse 25, flag set
+      rio(A_FLAGS); tf = rd[7];
+      chk($sformatf("R2 mirror setup %02h: timer flag set", ad), tf, 1);
+      begin int k; k = pulse; rio(ad);
+        chk($sformatf("R2 INTIM read via %02h value", ad), rd, intim_exp(3, 8, k));
+        chk($sformatf("R2 INTIM read via %02h d_oe", ad), oe, 1); end
+      read_flags(tf, pf);
+      chk($sformatf("R2 INTIM read via %02h clears the timer flag", ad), tf, 0);
+      verbose = 1;
+    end
+    // flag register reads: A1, A3, A4 are don't-care. Read returns both flags, clears the PA7 flag only.
+    for (int m = 0; m < 8; m++) begin
+      ad = A_FLAGS | {2'b00, m[2], m[1], 1'b0, m[0], 1'b0};
+      verbose = 0;
+      hw_reset(); wio(A_DDRA, 8'h00); pa_ext = 8'hFF; settle();
+      pa7_ctl(0, 0); tim_write(3, 0, 0);
+      pa_ext = 8'h7F; goto_pulse(20); settle();
+      rio(ad);
+      chk($sformatf("R2/R3 flag read via %02h: D7 timer, D6 PA7 both set", ad), rd, 8'hC0);
+      chk($sformatf("R2/R3 flag read via %02h d_oe", ad), oe, 1);
+      rio(A_FLAGS);
+      chk($sformatf("R3 flag read via %02h cleared PA7 flag, kept timer flag", ad), rd, 8'h80);
+      pa_ext = 8'hFF; settle();
+      verbose = 1;
+    end
   endtask
 
   // ------------------------------------------------------------ R3: PA7 and irq_n
@@ -466,6 +542,7 @@ module tb;
       r2_values(0, s); r2_values(1, s); r2_values(37, s); r2_values(255, s);
     end
     r2_flag_clear();
+    r1_bus_mirrors();
     r2_checks();
     for (int en = 0; en < 2; en++) for (int pos = 0; pos < 2; pos++) r3_pa7_input(en[0], pos[0]);
     r3_pa7_output(0); r3_pa7_output(1);
