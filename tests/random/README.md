@@ -12,3 +12,5 @@
   - `--reset-prob P`: random mid-run `res_n` (off by default: flags after reset are unspecified).
 
 Run: `python3 tests/random/mvt_riot_checks.py && python3 tests/random/run_random.py --seeds 200 --pulses 20000`
+
+Note: ref vs ref is 0 diffs by construction. The only independent check today is the timer oracle (INTIM and the D7 flag). irq_n, the PA7 flag, ports and RAM are checked only once the RTL trace is wired.

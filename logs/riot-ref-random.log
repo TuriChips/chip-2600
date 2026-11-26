@@ -7,3 +7,4 @@ dut=ref seeds=200 pulses/seed=20000 total_pulses=4000000 diffs=0 oracle_failures
 rc=0
 --- harness self-check (must fail):
 dut=mutant seeds=5 pulses/seed=5000 total_pulses=25000 diffs=1436 oracle_failures=572
+rc=1 expected (mutant must fail)
