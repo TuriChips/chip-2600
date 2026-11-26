@@ -46,7 +46,19 @@ Check names below are the prefixes of the `ok`/`FAIL` lines in the run log.
 - Timer read's A3 effect on the IRQ enable: observed only (§7.2 [check]).
 - A5/A6 on the INTIM and flag reads: not in the table; Beru's random harness covers them.
 - A5/A6 on the I/O registers: the §7.1 table has no column for them, so no mirror test.
-- Core-copy tests ($04, $AB #0, `ce` = 0 hold, chip-6502 suite with `ce` = 1): waiting on Zura's PR (#2); tracked on issue #4.
 
 ## Testbench self-check
 The testbench passes on Ada's RTL (`logs/m6532-tb-rtl.log`). Mutants of that RTL, run on the unchanged testbench, are in `logs/m6532-tb-selfcheck.log`. The earlier self-check used a scratch model that did not implement "a read after underflow ends the free-run" (Beru's review of #10); it is dropped.
+
+## Core copy (`rtl/cpu`, spec D3, D6)
+Run: `heavy tests/core/run_core.sh`. Log: `logs/core-copy-run.log` (ALL PASS).
+
+| Spec | Behaviour | Test | Status |
+|------|-----------|------|--------|
+| D3 | Block-library rule: chip-6502's cycle-by-cycle suite (16 runs: every instruction/mode, RDY, interrupts, resets) passes on the copy with `ce` = 1 | `tests/core/run_cyc.sh` (`tb/cpu/tb_cyc6502.sv`, chip-6502 tb with `.ce(1'b1)`), generator and model copied from chip-6502 | done, PASS |
+| D3 | chip-6502's ALU block vectors (991,232) pass with `ce` = 1 | `tb/cpu/tb_alu.sv` | done, PASS |
+| D6 | `$04` NOP zp: 3 cycles, reads its zero-page address, A/X/Y/P unchanged | `tb/cpu/tb_d6.sv` ("A $04 …", "$04 takes 3 cycles", "$04 reads …") | done, PASS |
+| D6 | `$AB #$00`: A = X = 0, N = 0, Z = 1, Y and other flags unchanged, 2 cycles | `tb/cpu/tb_d6.sv` ("A $AB #0 …") | done, PASS |
+| D3 | `ce` = 0 holds every register and bus output; a copy with irregular `ce` gaps (0–7 idle clocks) shows exactly the `ce` = 1 copy's bus trace per `ce` pulse; 300-clock hold; final memory equal | `tb/cpu/tb_d6.sv` ("ce=0 hold", "B (ce gated) …") | done, PASS |
+
+Not run on the copy: chip-6502's X/Z system run (`c7`, needs `m6502_system`, not copied), the CPU-level decimal ADC/SBC runs (`FULL=1`), `selftests`, and the SingleStepTests cross-check (§9 item 2). Seeded faults in `tb_d6` (a timing block ignoring `ce`; `$AB` removed) are both caught.

@@ -1,0 +1,40 @@
+== cycles (chip-6502 gen_cycles6502, 16 runs, ce=1)
+seed 1: PASS: cycles=10069 errors=0
+seed 2: PASS: cycles=10031 errors=0
+seed 3: PASS: cycles=10053 errors=0
+seed 4: PASS: cycles=12013 errors=0
+seed 5: PASS: cycles=15152 errors=0
+seed 6: PASS: cycles=14724 errors=0
+seed 7: PASS: cycles=15227 errors=0
+seed 8: PASS: cycles=16283 errors=0
+seed r0: PASS: cycles=13075 errors=0
+seed r1: PASS: cycles=13076 errors=0
+seed r2: PASS: cycles=13077 errors=0
+seed r3: PASS: cycles=13078 errors=0
+seed r4: PASS: cycles=13079 errors=0
+seed r5: PASS: cycles=13080 errors=0
+seed r6: PASS: cycles=13081 errors=0
+seed r7: PASS: cycles=13082 errors=0
+cyc: 0 failing
+== alu block (chip-6502 vectors, ce=1)
+PASS: 991232 vectors, 0 mismatches
+== D6 and ce hold (directed)
+ok   A $04: STA $0300 (A unchanged = $80) = 80
+ok   A $04: STX $0301 (X unchanged = $77) = 77
+ok   A $04: STY $0302 (Y unchanged = $33) = 33
+ok   A $04: P unchanged (N=1,I=1,C=1,bit5,B from PHP = $B5) = b5
+ok   A $AB #0: A = 0 = 0
+ok   A $AB #0: X = 0 = 0
+ok   A $AB #0: Y unchanged = $44 = 44
+ok   A $AB #0: P: N=0, Z=1, I=1, C=1 (PHP = $37) = 37
+ok   $04 takes 3 cycles (next opcode fetch 3 clocks after its fetch) = 3
+ok   $04 reads its zero-page address ($0010) once = 1
+ok   $AB #0 takes 2 cycles = 2
+ok   ce=0 for 300 clocks leaves all bus outputs unchanged = 0
+ok   B (ce gated) STA $0300 = 80
+ok   B (ce gated) $04 P unchanged = b5
+ok   B (ce gated) $AB A = 0 = 0
+ok   B (ce gated) $AB P = $37 = 37
+errors: 0
+PASS
+core-copy: ALL PASS
