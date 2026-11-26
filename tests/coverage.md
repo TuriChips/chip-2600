@@ -59,6 +59,6 @@ Run: `heavy tests/core/run_core.sh`. Log: `logs/core-copy-run.log` (ALL PASS).
 | D3 | chip-6502's ALU block vectors (991,232) pass with `ce` = 1 | `tb/cpu/tb_alu.sv` | done, PASS |
 | D6 | `$04` NOP zp: 3 cycles, reads its zero-page address, A/X/Y/P unchanged | `tb/cpu/tb_d6.sv` ("A $04 …", "$04 takes 3 cycles", "$04 reads …") | done, PASS |
 | D6 | `$AB #$00`: A = X = 0, N = 0, Z = 1, Y and other flags unchanged, 2 cycles | `tb/cpu/tb_d6.sv` ("A $AB #0 …") | done, PASS |
-| D3 | `ce` = 0 holds every register and bus output; a copy with irregular `ce` gaps (0–7 idle clocks) shows exactly the `ce` = 1 copy's bus trace per `ce` pulse; 300-clock hold; final memory equal | `tb/cpu/tb_d6.sv` ("ce=0 hold", "B (ce gated) …") | done, PASS |
+| D3 | `ce` = 0 holds every register and bus output, with `irq_n`/`nmi_n`/`so_n` tied to 1 (D1; interrupt latches not covered, an R-family reuse needs an interrupt-under-`ce` test); a copy with irregular `ce` gaps (0–7 idle clocks) shows exactly the `ce` = 1 copy's bus trace per `ce` pulse; 300-clock hold; final memory equal | `tb/cpu/tb_d6.sv` ("ce=0 hold", "B (ce gated) …") | done, PASS |
 
 Not run on the copy: chip-6502's X/Z system run (`c7`, needs `m6502_system`, not copied), the CPU-level decimal ADC/SBC runs (`FULL=1`), `selftests`, and the SingleStepTests cross-check (§9 item 2). Seeded faults in `tb_d6` (a timing block ignoring `ce`; `$AB` removed) are both caught.
