@@ -1,0 +1,29 @@
+== clean rtl/cpu, 12 runs
+prog s1 mode 0: PASS: seed=100 mode=0 cycles=4000 syncs=1179 rdy_low=1231 held_reads=1119 ce0_clocks=17008 errors=0
+prog s1 mode 1: PASS: seed=101 mode=1 cycles=4000 syncs=1746 rdy_low=2125 held_reads=2115 ce0_clocks=17837 errors=0
+prog s1 mode 2: PASS: seed=102 mode=2 cycles=4000 syncs=1111 rdy_low=258 held_reads=225 ce0_clocks=17342 errors=0
+prog s2 mode 0: PASS: seed=200 mode=0 cycles=4000 syncs=1126 rdy_low=1273 held_reads=1180 ce0_clocks=17896 errors=0
+prog s2 mode 1: PASS: seed=201 mode=1 cycles=4000 syncs=1496 rdy_low=2181 held_reads=2175 ce0_clocks=17171 errors=0
+prog s2 mode 2: PASS: seed=202 mode=2 cycles=4000 syncs=1088 rdy_low=258 held_reads=219 ce0_clocks=17872 errors=0
+prog s3 mode 0: PASS: seed=300 mode=0 cycles=4000 syncs=1173 rdy_low=1189 held_reads=1080 ce0_clocks=16914 errors=0
+prog s3 mode 1: PASS: seed=301 mode=1 cycles=4000 syncs=1265 rdy_low=2200 held_reads=2192 ce0_clocks=16934 errors=0
+prog s3 mode 2: PASS: seed=302 mode=2 cycles=4000 syncs=1106 rdy_low=238 held_reads=205 ce0_clocks=18026 errors=0
+prog s4 mode 0: PASS: seed=400 mode=0 cycles=4000 syncs=1193 rdy_low=1242 held_reads=1137 ce0_clocks=17513 errors=0
+prog s4 mode 1: PASS: seed=401 mode=1 cycles=4000 syncs=1300 rdy_low=2220 held_reads=2211 ce0_clocks=17989 errors=0
+prog s4 mode 2: PASS: seed=402 mode=2 cycles=4000 syncs=1114 rdy_low=239 held_reads=196 ce0_clocks=17743 errors=0
+ce_rdy: 0 failing
+== mutant A (see README)
+FAIL ce pulse 9 (rdy=1): B a=8001 rw=1 sync=0 oe=0 d=00, A a=8002 rw=1 sync=1 oe=0 d=00
+FAIL ce pulse 10 (rdy=1): B a=8002 rw=1 sync=1 oe=0 d=00, A a=8003 rw=1 sync=0 oe=0 d=00
+FAIL ce pulse 11 (rdy=1): B a=8003 rw=1 sync=0 oe=0 d=00, A a=8003 rw=1 sync=1 oe=0 d=00
+ce_rdy: 3 failing
+== mutant B (see README)
+FAIL ce=0 hold: outputs changed (rdy glitch) before pulse 730
+FAIL ce=0 hold: outputs changed (rdy glitch) before pulse 730
+FAIL ce=0 hold: outputs changed (rdy glitch) before pulse 730
+ce_rdy: 3 failing
+== mutant C (see README)
+FAIL ce pulse 0 (rdy=0): B a=01ff rw=1 sync=0 oe=0 d=00, A a=0000 rw=1 sync=0 oe=0 d=00
+FAIL ce pulse 1 (rdy=1): B a=fffc rw=1 sync=0 oe=0 d=00, A a=0000 rw=1 sync=0 oe=0 d=00
+FAIL ce=0 hold: outputs changed (rdy glitch) before pulse 2
+ce_rdy: 3 failing
