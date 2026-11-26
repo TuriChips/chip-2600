@@ -13,7 +13,8 @@
 //  [check-2] A timer read does NOT change the timer IRQ enable (only a timer
 //            write's A3 does).  Same as ref READ_A3_SETS_EN = False.
 //  [check-3] /1 past $00: the counter simply wraps $00 -> $FF and keeps
-//            counting down with the flag left as it is (8-bit wrap, no stop).
+//            counting down.  Every pass through $00 -> $FF sets the flag
+//            again (same as ref/m6532.py); Igris to rule in spec 7.2.
 //  [pin-levels] pa_in / pb_in are the resolved pin levels (spec 2.2, 7.3).
 //            Port A reads pa_in as is; port B reads ORB for output bits and
 //            pb_in for input bits.  PA7 edge detect watches pa_in[7].
