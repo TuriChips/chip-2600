@@ -14,3 +14,10 @@
 Run: `python3 tests/random/mvt_riot_checks.py && python3 tests/random/run_random.py --seeds 200 --pulses 20000`
 
 Note: ref vs ref is 0 diffs by construction. The only independent check today is the timer oracle (INTIM and the D7 flag). irq_n, the PA7 flag, ports and RAM are checked only once the RTL trace is wired.
+
+## Core copy: `ce` gating × `rdy` (WSYNC), chip-2600#16
+
+- `tb_ce_rdy.sv` + `run_ce_rdy.sh`: the gated `m6502` (random `ce` gaps, 0..7 clocks, sometimes up to 63) against an ungated copy given the same `rdy` pattern in `ce` time (single-cycle lows, bursts, WSYNC-like windows up to ~100 cycles). B's `rdy` glitches randomly on the `ce` = 0 clocks. Per `ce` pulse B's `a`, `rw`, `sync`, `d_oe` and write data must equal A's, from the first clock after reset (reset cycles included); on `ce` = 0 clocks B's outputs must not move. Independent of A/B: `rdy` = 0 on a read cycle holds `a`/`rw`/`sync`.
+- Programs: the random images from `tests/core/gen_cycles6502.py` (s1..s4) × 3 rdy modes, 4000 cycles each. `irq_n`/`nmi_n`/`so_n` tied to 1 (D1); not covered here, note for R-family reuse.
+- Run: `heavy tests/random/run_ce_rdy.sh [RTL_DIR] [N_PROGRAMS]` (about 11 s for 4 programs). Log: `logs/ce-rdy-random.log`.
+- Self-check: mutants of `m6502_timing.v` (rdy sampled on every clock; rdy honoured on writes; t counter clocked by `ce | ~rdy`) all fail; the unmodified copy passes (`logs/ce-rdy-random.log`).
