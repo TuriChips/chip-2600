@@ -1,0 +1,14 @@
+# m6532 testbench self-check (no RTL). Scratch model of spec 7 written by Titus, not committed.
+# Clean model:
+checks: 3232, errors: 0, cycles: 1299604
+PASS
+# Seeded faults (result of tb run on each mutant):
+portB-pins: FAIL: 2 of 3232 checks
+v01-timer: FAIL: 12 of 3232 checks
+flagread-clears-timer: FAIL: 20 of 3232 checks
+porta-OR: FAIL: 1 of 3232 checks
+reset-ram: PASS
+ddr-noreset: FAIL: 2 of 3232 checks
+hold-ce: FAIL: 1 of 3232 checks
+# reset-ram: mutant cleared only ram[0]; the tb checks RAM[0x20], so PASS here is a weak mutant, not proof the tb misses a RAM reset (R1 reset reads one byte).
+# no-both-edges mutant: not run (run hit its time limit).
