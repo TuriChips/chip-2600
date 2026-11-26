@@ -1,0 +1,6 @@
+-Wno-WIDTHEXPAND
+-Wno-WIDTHTRUNC
+-Wno-TIMESCALEMOD
+-Wno-UNUSEDSIGNAL
+rtl/datapath/m6532.v
+tb/m6532/tb.sv

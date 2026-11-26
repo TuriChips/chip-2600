@@ -1,0 +1,8 @@
+# m6532 tb mutants: one-line mutants of rtl/datapath/m6532.v (main b2d49e2), tb/m6532/tb.sv unchanged
+# clean RTL: checks: 3305, errors: 0, cycles: 1299344 -> PASS (logs/m6532-tb-rtl.log)
+doe: FAIL: 23 of 3305 checks
+twr: FAIL: 16 of 3305 checks
+trd: FAIL: 4 of 3305 checks
+ewr: FAIL: 3 of 3305 checks
+# doe: d_oe only on RAM reads. twr: t_wr ignores A4. trd: INTIM read needs A1=0. ewr: e_wr ignores A4.
+# Mutants are Beru's list from the review of #10 (same four).
