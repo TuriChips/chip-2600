@@ -15,7 +15,7 @@ module tb_tia_rd;
   integer fi, fo, n, i, rc; reg [1023:0] sf, of;
   integer v_rst, v_en, v_objs, v_vb, v_clr, v_pin, v_a, v_rcx, v_rin, v_step, v_start, v_right, v_ref, v_p0, v_p1, v_p2;
   initial begin
-    if (!$value$plusargs("STIM=%s", sf) || !$value$plusargs("OUT=%s", of) || !$value$plusargs("N=%d", n)) $fatal(1, "need +STIM +OUT +N");
+    if (!$value$plusargs("STIM=%s", sf) || !$value$plusargs("OUT=%s", of) || !$value$plusargs("N=%d", n)) begin $display("need +STIM +OUT +N"); $finish; end;
     fi=$fopen(sf,"r"); fo=$fopen(of,"w");
     for (i=0;i<n;i=i+1) begin
       rc=$fscanf(fi,"%h %h %h %h %h %h %h %h %h %h %h %h %h %h %h %h\n", v_rst,v_en,v_objs,v_vb,v_clr,v_pin,v_a,v_rcx,v_rin,v_step,v_start,v_right,v_ref,v_p0,v_p1,v_p2);

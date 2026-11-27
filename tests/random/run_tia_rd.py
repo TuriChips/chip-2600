@@ -90,7 +90,7 @@ def run_rtl(seed, stim):
         for s in stim:
             f.write(" ".join("%x" % x for x in s) + "\n")
     srcs = [os.path.join(ROOT, "rtl", "control", x) for x in ("tia_cx.v", "tia_inpt.v", "tia_rd.v")] + [os.path.join(ROOT, "rtl", "datapath", "tia_pf.v")]
-    subprocess.run(["iverilog", "-g2012", "-o", vvp, os.path.join(HERE, "tb_tia_rd.sv")] + srcs, check=True)
+    subprocess.run(["iverilog", "-g2005", "-o", vvp, os.path.join(HERE, "tb_tia_rd.sv")] + srcs, check=True)
     subprocess.run(["vvp", "-n", vvp, f"+STIM={sf}", f"+OUT={of}", f"+N={len(stim)}"], check=True, stdout=subprocess.DEVNULL)
     with open(of) as f:
         return [tuple(int(x, 16) for x in line.split()) for line in f]
