@@ -1,0 +1,20 @@
+
+20. Printing statistics.
+
+=== tia_cx ===
+
+   Number of wires:                 43
+   Number of wire bits:             57
+   Number of public wires:          12
+   Number of public wire bits:      26
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 46
+     sky130_fd_sc_hd__and4b_1       15
+     sky130_fd_sc_hd__dfxtp_1       15
+     sky130_fd_sc_hd__nor2_1         1
+     sky130_fd_sc_hd__o21a_1        15
+
+   Chip area for module '\tia_cx': 566.793600
+

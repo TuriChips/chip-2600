@@ -1,0 +1,33 @@
+
+20. Printing statistics.
+
+=== tia_pf ===
+
+   Number of wires:                 48
+   Number of wire bits:             69
+   Number of public wires:          11
+   Number of public wire bits:      32
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 43
+     sky130_fd_sc_hd__a21oi_1        3
+     sky130_fd_sc_hd__a31oi_1        1
+     sky130_fd_sc_hd__clkinv_1       2
+     sky130_fd_sc_hd__dfxtp_1        5
+     sky130_fd_sc_hd__mux2_1         2
+     sky130_fd_sc_hd__mux2i_1        3
+     sky130_fd_sc_hd__mux4_2         4
+     sky130_fd_sc_hd__nand2_1        3
+     sky130_fd_sc_hd__nand3_1        2
+     sky130_fd_sc_hd__nand4_1        1
+     sky130_fd_sc_hd__nor2_1         4
+     sky130_fd_sc_hd__nor3_1         2
+     sky130_fd_sc_hd__nor4_1         2
+     sky130_fd_sc_hd__o2111ai_1      1
+     sky130_fd_sc_hd__o21ai_0        3
+     sky130_fd_sc_hd__xnor2_1        2
+     sky130_fd_sc_hd__xor2_1         3
+
+   Chip area for module '\tia_pf': 404.137600
+
