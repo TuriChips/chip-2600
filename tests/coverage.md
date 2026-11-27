@@ -62,3 +62,22 @@ Run: `heavy tests/core/run_core.sh`. Log: `logs/core-copy-run.log` (ALL PASS).
 | D3 | `ce` = 0 holds every register and bus output, with `irq_n`/`nmi_n`/`so_n` tied to 1 (D1; interrupt latches not covered, an R-family reuse needs an interrupt-under-`ce` test); a copy with irregular `ce` gaps (0–7 idle clocks) shows exactly the `ce` = 1 copy's bus trace per `ce` pulse; 300-clock hold; final memory equal | `tb/cpu/tb_d6.sv` ("ce=0 hold", "B (ce gated) …") | done, PASS |
 
 Not run on the copy: chip-6502's X/Z system run (`c7`, needs `m6502_system`, not copied), the CPU-level decimal ADC/SBC runs (`FULL=1`), `selftests`, and the SingleStepTests cross-check (§9 item 2). Seeded faults in `tb_d6` (a timing block ignoring `ce`; `$AB` removed) are both caught.
+
+## TIA blocks (`tb/tia/`, spec §4.1, §5, §6.1, §6.5, §6.6)
+Run: `tests/tia/run_tia.sh` (Icarus). RTL log: `logs/tia-tb-rtl.log` (written when the RTL is merged; not yet run on it, `tia_poly6`/`tia_objdec` = #19, `tia_regs`/`tia_hdec` = #20). Self-check: `tests/tia/selfcheck/run.sh`, log `logs/tia-tb-selfcheck.log` (the benches pass on a scratch model written from the spec and fail all 13 mutants). The expected values come from the spec only. The spec leaves the packing of multi-field `tia_regs` ports to the RTL header, so those checks use bit count, all-ones on `$FF`, injectivity of walking-1 data and port-to-port copies. Exact packing is asserted only for 8-bit registers (= `d`), COLUPx (= `d[7:1]`), NUSIZx (`{d5,d4,d2,d1,d0}`) and 1-bit registers.
+
+| Spec | Behaviour | Test | Status |
+|------|-----------|------|--------|
+| §4.1 | `rst` → 000000; 000000 → 100000 (Q1…Q6); the 63 states follow new Q1 = XNOR(Q5,Q6) and each is visited once, 111111 never; back at 000000 after 63 steps | `tb_poly` T1 ("state k follows XNOR rule", "visited once") | written |
+| §4.1 | `step` = 0 holds (at 13 different counts); `rst` wins over `step`; forced 111111: both ERR decodes fire and no other, holds on `step`=0, a step follows the XNOR rule (new state 111111) | `tb_poly` T1 ("hold at count", "rst over step", "forced 111111") | written (forced-state checks need `dut.q` to be a forceable reg, else a REPORT line says they were skipped) |
+| §4.1 | Decode counts from 000000: SHS 4, RHS 8, RCB 12, RHB 16, LRHB 18, CNT 36, END 56, each fires once; the literal Q1…Q6 states at those counts | `tb_poly` T1 ("… at count", "seq[n] = …") | written |
+| §6.5 | Object decode counts: wrap 39, c3 3, c7 7, c15 15, ERR never in the 63 states | `tb_poly` T1 ("obj … at count") | written |
+| §4.1, §6.5 | For all 64 inputs exactly the table's decodes fire: `tia_hdec` (8 outputs) and `tia_objdec` (5) | `tb_poly` T2 | written |
+| §6.1 | Every address `$00`–`$3F` × data `$00`, `$FF`, 8 walking-1, 8 walking-0, from the reset state and from an all-`$FF` state: only the map's bits stored, the bit count and placement as above, no other port changes (except the vertical-delay copies) | `tb_regs` T3 ("T3 (… background) $aa data dd …") | written |
+| §6.1 | `$2D`–`$3F` change nothing and raise no strobe; `wr` = 0 does nothing at any address | `tb_regs` T3 | written |
+| §6.1 | Strobes WSYNC, RSYNC, RESP0/1, RESM0/1, RESBL, HMOVE, HMCLR, CXCLR: exactly that one strobe high for exactly one `clk` (counted over a 4-clk window, so a registered or a combinational pulse both pass), data ignored, no stored port changed (except HMCLR) | `tb_regs` T3 ("strobe n count") | written |
+| §6.5 | Vertical delay: GRP0 write → GRP1 old = GRP1 new and does not touch GRP0 old or ENABL old; GRP1 write → GRP0 old = GRP0 new and ENABL old = ENABL new; an ENABL write changes no old copy; 3000 random writes against a model | `tb_regs` T4 | written |
+| §6.6 | HMCLR clears HMP0, HMP1, HMM0, HMM1, HMBL and nothing else; an HM write after HMCLR loads, one HM write leaves the others | `tb_regs` T4 | written |
+| §5 | After `rst`, every stored output and every strobe is 0 (from a fully loaded state, vertical-delay copies included), compared with `!==` so X fails | `tb_regs` T5 | written |
+
+Not covered: the `$00`–`$2C` write-time phase (Φ2 fall alignment, §4.2 [check]); `rst` and `wr` in the same clk (spec silent); `tia_hdec`'s delay boxes and END's reset route (§4.1 [check]); NUSIZ gating of c3/c7/c15 (§6.5 [check]); the strobes' own timing relative to `wr` (registered or not): not in the spec.
