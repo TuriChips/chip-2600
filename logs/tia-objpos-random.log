@@ -1,53 +1,61 @@
-# tia_objpos random harness, model self-check and mutants (chip-2600#63)
-# RTL (#60) not on main yet: --dut rtl not run.
+# tia_objpos random harness: model self-check, mutants, RTL (chip-2600#63). ERR forced via inj (RTL: hierarchical u_cnt.q).
 $ run_tia_objpos.py --seeds 200 --dut ref
-dut=ref seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=0 seeds_with_diffs=0 diffs=0
+dut=ref seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=0 diffs=0
 exit=0
+$ run_tia_objpos.py --seeds 200 --dut mutant:err_no_reset
+dut=mutant:err_no_reset seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=200 diffs=112893
+exit=1
+$ run_tia_objpos.py --seeds 200 --dut mutant:err_decode_as_copy
+dut=mutant:err_decode_as_copy seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=52 diffs=210
+exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:period_41
-dut=mutant:period_41 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=5 seeds_with_diffs=166 diffs=174855
+dut=mutant:period_41 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=5 seeds_with_diffs=163 diffs=156986
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:res_loses_to_step
-dut=mutant:res_loses_to_step seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=0 seeds_with_diffs=175 diffs=696465
+dut=mutant:res_loses_to_step seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=175 diffs=662425
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:res_ignored
-dut=mutant:res_ignored seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=0 seeds_with_diffs=175 diffs=825021
+dut=mutant:res_ignored seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=175 diffs=786763
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:rst_ignored
-dut=mutant:rst_ignored seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=0 seeds_with_diffs=99 diffs=93331
+dut=mutant:rst_ignored seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=99 diffs=55814
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:no_wrap_reset
-dut=mutant:no_wrap_reset seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=4 seeds_with_diffs=166 diffs=183097
+dut=mutant:no_wrap_reset seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=4 seeds_with_diffs=163 diffs=161659
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:xor_not_xnor
-dut=mutant:xor_not_xnor seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=134 seeds_with_diffs=200 diffs=903559
+dut=mutant:xor_not_xnor seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=134 seeds_with_diffs=200 diffs=899145
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:tap_q4_q6
-dut=mutant:tap_q4_q6 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=27 seeds_with_diffs=200 diffs=647332
+dut=mutant:tap_q4_q6 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=27 seeds_with_diffs=200 diffs=635448
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:c3_enabled_for_100
-dut=mutant:c3_enabled_for_100 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=1 seeds_with_diffs=148 diffs=8853
+dut=mutant:c3_enabled_for_100 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=1 seeds_with_diffs=148 diffs=8797
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:c7_missing_110
-dut=mutant:c7_missing_110 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=1 seeds_with_diffs=146 diffs=5215
+dut=mutant:c7_missing_110 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=1 seeds_with_diffs=146 diffs=5168
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:c15_enabled_101
-dut=mutant:c15_enabled_101 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=1 seeds_with_diffs=145 diffs=2779
+dut=mutant:c15_enabled_101 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=1 seeds_with_diffs=147 diffs=2813
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:c3_missing_011
-dut=mutant:c3_missing_011 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=1 seeds_with_diffs=148 diffs=8734
+dut=mutant:c3_missing_011 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=1 seeds_with_diffs=148 diffs=9049
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:copy_ignores_nusiz
-dut=mutant:copy_ignores_nusiz seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=8 seeds_with_diffs=200 diffs=91659
+dut=mutant:copy_ignores_nusiz seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=8 seeds_with_diffs=200 diffs=92726
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:nusiz_latched_on_res
-dut=mutant:nusiz_latched_on_res seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=5 seeds_with_diffs=152 diffs=25425
+dut=mutant:nusiz_latched_on_res seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=5 seeds_with_diffs=158 diffs=25736
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:main_gated_by_nusiz
-dut=mutant:main_gated_by_nusiz seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=1 seeds_with_diffs=91 diffs=824
+dut=mutant:main_gated_by_nusiz seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=1 seeds_with_diffs=87 diffs=701
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:c7_wrong_state
-dut=mutant:c7_wrong_state seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=3 seeds_with_diffs=160 diffs=21463
+dut=mutant:c7_wrong_state seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=3 seeds_with_diffs=160 diffs=21452
 exit=1
 $ run_tia_objpos.py --seeds 200 --dut mutant:step_without_step
-dut=mutant:step_without_step seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=40/63 (ERR reachable=0) res_with_step=45400 nusiz_changes=103264 start_main_clks=6516 copy_clks_3/7/15=15328/15139/5210 structural_fails=0 seeds_with_diffs=139 diffs=148561
+dut=mutant:step_without_step seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=139 diffs=129997
 exit=1
+$ run_tia_objpos.py --seeds 200 --dut rtl
+dut=rtl seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 states_seen=41/63 ERR_injections=1913 (reachable from reset=0) res_with_step=45180 nusiz_changes=103701 start_main_clks=6013 copy_clks_3/7/15=15827/15269/4825 structural_fails=0 seeds_with_diffs=0 diffs=0
+exit=0
