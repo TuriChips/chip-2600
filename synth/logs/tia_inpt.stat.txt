@@ -1,0 +1,20 @@
+
+20. Printing statistics.
+
+=== tia_inpt ===
+
+   Number of wires:                 11
+   Number of wire bits:             24
+   Number of public wires:           6
+   Number of public wire bits:      19
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 13
+     sky130_fd_sc_hd__dfxtp_1        2
+     sky130_fd_sc_hd__mux2_1         2
+     sky130_fd_sc_hd__nand2_1        4
+     sky130_fd_sc_hd__nor2b_1        5
+
+   Chip area for module '\tia_inpt': 108.854400
+
