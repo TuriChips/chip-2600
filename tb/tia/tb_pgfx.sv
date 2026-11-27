@@ -141,7 +141,7 @@ module tb_pgfx;
     scan2("VDELBL=1 leaves players on new", m_g0n, m_g1n, 0, 0, 0, 0);
     wrreg(6'h27, 8'h00);
     // a GRP0 write alone does not touch P0 old
-    wrreg(6'h25, 8'h01); wrreg(6'h1B, 8'h18); m_g1o = m_g1n; m_g0n = 8'h18;   // P1 old := P1 new ($D2)
+    wrreg(6'h25, 8'h01); wrreg(6'h1B, 8'h18); wrreg(6'h1B, 8'h24); m_g1o = m_g1n; m_g0n = 8'h24;   // two GRP0 writes: P1 old := P1 new ($D2), P0 old stays $96
     wrreg(6'h26, 8'h01);
     scan2("after GRP0 alone: P0 old unchanged, P1 old = P1 new", m_g0o, m_g1o, 0, 0, 0, 0);
     // REFP and NUSIZ come through tia_regs: D3 of REFPx, D2-D0 of NUSIZx (D5-D4 must not change the player width)

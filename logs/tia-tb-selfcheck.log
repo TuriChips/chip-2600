@@ -48,8 +48,8 @@ mutant pgfx always old: FAIL: 2975 of 8824 checks
 mutant pgfx refp ignored (D7 first): FAIL: 1178 of 8824 checks
 mutant pgfx refp ignored (D0 first): FAIL: 1278 of 8824 checks
 mutant pgfx refp inverted: FAIL: 2456 of 8824 checks
-mutant pgfx 101 is 1 clk: FAIL: 336 of 8824 checks
-mutant pgfx 101 is 4 clk: FAIL: 376 of 8824 checks
+mutant pgfx 101 is 1 clk: FAIL: 334 of 8824 checks
+mutant pgfx 101 is 4 clk: FAIL: 372 of 8824 checks
 mutant pgfx 111 is 2 clk: FAIL: 648 of 8824 checks
 mutant pgfx 111 is 1 clk: FAIL: 674 of 8824 checks
 mutant pgfx 110 is 2 clk: FAIL: 208 of 8824 checks
@@ -68,5 +68,5 @@ mutant pgfx advances without step: FAIL: 2 of 8824 checks
 mutant pgfx output not gated by act: FAIL: 361 of 8824 checks
 mutant pgfx e2e: GRP0 write forgets P1 old: FAIL: 12 of 8824 checks
 mutant pgfx e2e: GRP1 write forgets P0 old: FAIL: 12 of 8824 checks
-mutant pgfx e2e: GRP0 write copies P0 new to old: PASS (8824 checks)
-mutant pgfx e2e: NUSIZ stores D5-D4 in the width bits: FAIL: 8 of 8824 checks
+mutant pgfx e2e: GRP0 write copies P0 new to old: FAIL: 4 of 8824 checks
+mutant pgfx e2e: NUSIZ stores D5-D4 in the width bits: FAIL: 4 of 8824 checks
