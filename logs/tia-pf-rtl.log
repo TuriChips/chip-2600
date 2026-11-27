@@ -1,0 +1,2 @@
+PASS (5778 checks)
+tb/tia/tb_pf.sv:92: $finish called at 58826000 (1ps)
