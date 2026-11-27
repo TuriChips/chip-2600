@@ -14,5 +14,6 @@ run cx tb/tia/tb_cx.sv rtl/control/tia_cx.v rtl/control/tia_inpt.v rtl/control/t
 run pf tb/tia/tb_pf.sv rtl/datapath/tia_pf.v
 if [ -f rtl/datapath/tia_pgfx.v ]; then run pgfx tb/tia/tb_pgfx.sv rtl/datapath/tia_pgfx.v rtl/control/tia_regs.v; else echo "pgfx: SKIPPED (rtl/datapath/tia_pgfx.v not merged, chip-2600#37)" | tee -a "$L"; fi
 if [ -f rtl/datapath/tia_mbgfx.v ]; then run mbgfx tb/tia/tb_mbgfx.sv rtl/datapath/tia_mbgfx.v; else echo "mbgfx: SKIPPED (rtl/datapath/tia_mbgfx.v not merged, chip-2600#51)" | tee -a "$L"; fi
+if [ -f rtl/control/tia_prio.v ]; then run prio tb/tia/tb_prio.sv rtl/control/tia_prio.v; else echo "prio: SKIPPED (rtl/control/tia_prio.v not merged, chip-2600#61)" | tee -a "$L"; fi
 [ $rc -eq 0 ] && echo "tia: ALL PASS" | tee -a "$L" || echo "tia: FAILURES" | tee -a "$L"
 exit $rc
