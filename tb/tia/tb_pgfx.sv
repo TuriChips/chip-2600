@@ -1,6 +1,6 @@
 // Testbench T5 (player graphics): tia_pgfx plus the tia_regs vertical-delay copy. Spec: docs/spec.md 6.5 (Players, Vertical delay).
 // Port contract (chip-2600#37 gives behaviour, not names; names as in Beru's tests/random/tb_tia_pgfx.sv, #39):
-//   clk rst step start grp_new[7:0] grp_old[7:0] vdel refp nusiz[2:0] -> pgfx.  nusiz = NUSIZ D2-D0.
+//   clk rst step start grp_new[7:0] grp_old[7:0] vdel refl nusiz[2:0] -> gfx (names per tia_pgfx header).  nusiz = NUSIZ D2-D0.
 // Timing convention (same as tb_pf): after a clk edge with start=1 the output shows bit 0 (D7, or D0 when refp=1);
 // a bit lasts `w` clk edges with step=1 (w = 2 for 101, 4 for 111, else 1); the step after the last clock of bit 7 gives 0.
 // Not tested (spec [check], turichips#48): when a copy starts, the stretched-mode +1 delay, start+step on the same edge,
@@ -12,7 +12,7 @@ module tb_pgfx;
   logic clk = 0, rst = 0, step = 0, start = 0, vdel = 0, refp = 0;
   logic [7:0] gn = 0, go = 0; logic [2:0] nz = 0;
   wire pg;
-  tia_pgfx dut (.clk(clk), .rst(rst), .step(step), .start(start), .grp_new(gn), .grp_old(go), .vdel(vdel), .refp(refp), .nusiz(nz), .pgfx(pg));
+  tia_pgfx dut (.clk(clk), .rst(rst), .step(step), .start(start), .grp_new(gn), .grp_old(go), .vdel(vdel), .refl(refp), .nusiz(nz), .gfx(pg));
   // second pair for the end-to-end part: P0 and P1 fed from tia_regs
   logic wr = 0, rrst = 0; logic [5:0] a = 0; logic [7:0] d = 0;
   wire [4:0] nusiz0, nusiz1; wire refp0, refp1, vdelp0, vdelp1;
@@ -24,8 +24,8 @@ module tb_pgfx;
     .hmbl(), .vdelbl(), .resmp0(), .resmp1(), .wsync_s(), .rsync_s(), .resp0_s(), .resp1_s(), .resm0_s(), .resm1_s(),
     .resbl_s(), .hmove_s(), .hmclr_s(), .cxclr_s());
   logic step_e = 0, start_e = 0; wire pe0, pe1;
-  tia_pgfx p0 (.clk(clk), .rst(rrst), .step(step_e), .start(start_e), .grp_new(g0n), .grp_old(g0o), .vdel(vdelp0), .refp(refp0), .nusiz(nusiz0[2:0]), .pgfx(pe0));
-  tia_pgfx p1 (.clk(clk), .rst(rrst), .step(step_e), .start(start_e), .grp_new(g1n), .grp_old(g1o), .vdel(vdelp1), .refp(refp1), .nusiz(nusiz1[2:0]), .pgfx(pe1));
+  tia_pgfx p0 (.clk(clk), .rst(rrst), .step(step_e), .start(start_e), .grp_new(g0n), .grp_old(g0o), .vdel(vdelp0), .refl(refp0), .nusiz(nusiz0[2:0]), .gfx(pe0));
+  tia_pgfx p1 (.clk(clk), .rst(rrst), .step(step_e), .start(start_e), .grp_new(g1n), .grp_old(g1o), .vdel(vdelp1), .refl(refp1), .nusiz(nusiz1[2:0]), .gfx(pe1));
   always #5 clk = ~clk;
   int errs = 0, nchk = 0;
   task automatic chk(input string name, input logic [31:0] got, input logic [31:0] exp);
