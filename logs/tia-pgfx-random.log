@@ -1,0 +1,11 @@
+dut=ref live=0 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 starts=161362 width_1/2/4=125832/18889/16641 reflected=73826 vdel_old=71232 restarts_while_drawing=125382 one_bits=453167 seeds_with_diffs=0 diffs=0
+dut=ref live=1 seeds=100 seed0=1 clks/seed=5000 total_clks=500000 starts=74474 width_1/2/4=57916/8733/7825 reflected=34731 vdel_old=33114 restarts_while_drawing=55570 one_bits=221965 seeds_with_diffs=0 diffs=0
+dut=mutant:vdel_inverted live=0 seeds=20 seed0=1 seeds_with_diffs=20 diffs=22431
+dut=mutant:refp_ignored live=0 seeds=20 seed0=1 seeds_with_diffs=20 diffs=21745
+dut=mutant:nusiz_101_x1 live=0 seeds=20 seed0=1 seeds_with_diffs=20 diffs=4721
+dut=mutant:nusiz_111_x2 live=0 seeds=20 seed0=1 seeds_with_diffs=19 diffs=4565
+dut=mutant:nusiz_100_x2 live=0 seeds=20 seed0=1 seeds_with_diffs=19 diffs=4821
+dut=mutant:no_restart live=0 seeds=20 seed0=1 seeds_with_diffs=20 diffs=19723
+dut=mutant:swap_old_new live=0 seeds=20 seed0=1 seeds_with_diffs=20 diffs=22431
+dut=mutant:start_no_reset_cnt live=0 seeds=20 seed0=1 seeds_with_diffs=17 diffs=2682
+dut=mutant:output_after_end live=0 seeds=20 seed0=1 seeds_with_diffs=20 diffs=7616

@@ -34,3 +34,9 @@ Note: ref vs ref is 0 diffs by construction. The only independent check today is
 - Status: RTL not merged yet; only the self-check has run (`logs/tia-rd-random.log`). Run `python3 tests/random/run_tia_rd.py --dut rtl --seeds 200` when #27/#28 land.
 - Model choices the RTL may differ on (will be filed as issues if so): `tia_inpt` output is the latch state after the edge (cleared by a 0 on the pin at that edge); latches reset to 1 on rst or D6=0; scan index beyond 19 and simultaneous step+start are not stimulated.
 - `ref` is a SystemVerilog keyword: #27's `tia_pf` port `ref` only compiles as Verilog-2005 (-g2005); the harness uses -g2005. If Ada renames it, the TB instance needs the new name.
+
+## TIA player graphics (chip-2600#39)
+- `ref/tia_pgfx.py`: serial bit of one player (select old/new by VDELPx, D7-first or D0-first by REFPx, 1/2/4 clocks per bit by NUSIZ, `start` restarts, output 0 when idle). Output is the state after the edge.
+- `run_tia_pgfx.py` + `tb_tia_pgfx.sv`: two players, GRP/VDEL via `ref/tia_regs.py` random writes (vertical-delay copy end to end), random start/step, resets. Config changes only while the player is idle unless `--live`. 9 planted bugs, all caught; ref self-check 200 seeds x 5000 clks. Log: `logs/tia-pgfx-random.log`.
+- Status: `tia_pgfx` RTL not merged (#37); `tb_tia_pgfx.sv` uses ASSUMED port names (`grp_new grp_old vdel refp nusiz pgfx`). Fix to the real header, then `python3 tests/random/run_tia_pgfx.py --dut rtl --seeds 200`.
+- Model choices the RTL may differ on: start wins over a same-clk step; width/GRP/REFP read live (hence idle-only changes by default); output registered-index/combinational like `tia_pf`.
