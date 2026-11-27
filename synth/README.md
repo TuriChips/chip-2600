@@ -14,7 +14,7 @@ Run on chip-2600 main d19bc6c, toolchain v0.10.2. Full output: `synth/report.txt
 
 Notes:
 - All blocks pass `check -assert` (no multiple drivers, no undriven signals) and have 0 latches. Nothing to file for Ada or Zura.
-- m6532 flops: 1024 are the 128-byte RAM (as flops, no macro), so area is dominated by RAM. Excluding it the RIOT is roughly 1/3 of that area; not separately measured.
+- m6532 flops: 1024 are the 128-byte RAM (as flops, no macro), so area is dominated by RAM. RAM-versus-logic area is not separated.
 - tia_hdec and tia_objdec are purely combinational: the path is input to output, against a virtual clock.
 - Block paths are not chip speed: they are gates only and exclude wires and the surrounding logic. No speed is claimed.
 - Yosys "warnings" in the report are the liberty reader skipping scan-flop cells and an ABC multi-output note; none concern the RTL.
