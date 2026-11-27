@@ -1,0 +1,2 @@
+PASS (657 checks)
+tb/tia/tb_cx.sv:235: $finish called at 55288000 (1ps)
