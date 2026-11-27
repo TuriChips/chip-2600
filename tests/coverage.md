@@ -81,3 +81,23 @@ Run: `tests/tia/run_tia.sh` (Icarus). RTL log: `logs/tia-tb-rtl.log` (written wh
 | §5 | After `rst`, every stored output and every strobe is 0 (from a fully loaded state, vertical-delay copies included), compared with `!==` so X fails | `tb_regs` T5 | written |
 
 Not covered: the `$00`–`$2C` write-time phase (Φ2 fall alignment, §4.2 [check]); `rst` and `wr` in the same clk (spec silent); `tia_hdec`'s delay boxes and END's reset route (§4.1 [check]); NUSIZ gating of c3/c7/c15 (§6.5 [check]); the strobes' own timing relative to `wr` (registered or not): not in the spec.
+
+## TIA collisions, inputs, read map, static playfield (`tb/tia/tb_cx.sv`, `tb/tia/tb_pf.sv`, spec §6.1, §6.4, §6.7, §6.8)
+Run: `tests/tia/run_tia.sh` (Icarus; runs `cx` and `pf` after `poly` and `regs`). RTL log: `logs/tia-tb-rtl.log` (not yet run on the RTL: `tia_cx`/`tia_inpt`/`tia_rd` = #28, `tia_pf` = #27, not merged). Self-check: `tests/tia/selfcheck/run.sh`, log `logs/tia-tb-selfcheck.log`: both benches pass on scratch models written from the spec (`cx.v`, `pf.v`) and fail all 26 new mutants. Expected values come from the spec and the issues' port contracts. `tia_cx` packing as in #28 (pair order of the read map, CXM0P D7 = cx[14] … CXPPMM D6 = cx[0]).
+**Port name:** #27 names the input `ref`, a SystemVerilog keyword (Icarus and Verilator reject it). `tb_pf` connects `.pf_ref(...)`; the RTL must use that name, or the bench changes with it.
+
+| Spec | Behaviour | Test | Status |
+|------|-----------|------|--------|
+| §6.7 | Each of the 15 pairs, alone, sets its own bit and no other; a single object or none sets nothing; all six set all 15; the bit holds after the outputs drop | `tb_cx` T7 ("pair n …", "object n alone") | written |
+| §6.7 | `en` = 0 sets nothing | `tb_cx` T7 ("en=0 sets nothing") | written |
+| §6.7 | VBLANK D1 = 1 blocks every pair's set (also 2 clocks running) and does not clear set bits; set resumes when D1 = 0. No HBLANK input exists: a 228-clock run with D1 = 0 sets at any clock | `tb_cx` T7 ("blocked by VBLANK D1", "any colour clock") | written |
+| §6.7 | CXCLR clears all 15 (with `en` 0 and 1), and wins over a set on the same clk (from clear and from set); sets work after it | `tb_cx` T7 ("CXCLR …") | written |
+| §6.7 | 5000 random clocks of objects/`vblank`/`en`/`cxclr` against a model | `tb_cx` T7 ("random") | written |
+| §6.8 | I0–I3 follow the pin, read 0 while VBLANK D7 = 1 (with D1 = 1 too), are not affected by D6 or D1, no leak to other inputs | `tb_cx` T8 ("I n …") | written |
+| §6.8 | I4–I5: D6 = 0 transparent; D6 = 1 a 0 pulse latches 0 until D6 = 0, then reads the pin again; the latch is reset by D6 = 0 and latches again; D1 does not release it; I4 and I5 latch independently; D7 does not force I4–I5 | `tb_cx` T8 ("I4/I5 …") | written |
+| §6.1 | Read map, every address `$0`–`$F`: D7 and D6 per line with a walking 1 over all 15 `cx` bits (only the mapped bit shows), `d_oe` = 11 on `$0`–`$5`, `$7`; `$8`–`$D` D7 = INPTn, `d_oe` = 10, walking 1 and 0 over the 6 inputs; `$E`/`$F` `d_oe` = 00; inputs never reach collision reads and vice versa | `tb_cx` read map ("RD $a …") | written |
+| §6.4 | All 20 bits one at a time, left half and right half, `ref` 0 and 1, one bit per `step`; all ones, all zeros, 200 random patterns; right half with `ref` 1 is the left reversed, with `ref` 0 repeats it | `tb_pf` T4 | written |
+| §6.4 | `step` = 0 holds the index; `start` restarts at bit 0 mid-scan; `rst` gives index 0 | `tb_pf` T4 ("hold", "restart", "rst") | written |
+| §6.4 | A write shows from the next index (PF1 and PF2 changed mid-scan) | `tb_pf` T4 ("written … index") | written |
+
+Not covered: CXBLPF D6 and its `d_oe[0]` (§6.1 [check: LD s2 C6]); the colour clock from which a mid-line PF write is visible, and the RHB/CNT-to-first-bit delay (§6.4 [check], turichips#48); the index after bit 19 without a `start`; `rst` in `tia_inpt` (latch state after reset: spec silent); `tia_rd` `d_out` where `d_oe` = 0; SCORE and PFP (§6.9, priority mux).
