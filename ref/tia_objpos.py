@@ -10,6 +10,7 @@ Written from docs/spec.md only, not from the RTL. One step() per `clk` edge; out
           none for 000/101/111.
   start_main = state is the wrap decode (Q1..Q6 = 101101, count 39); start_copy = an enabled copy decode.
   nusiz is read live: a change mid-period takes effect on the very next output (combinational gating).
+Test-only: the harness forces q=ERR by assigning self.q (RTL: hierarchical write); ERR is unreachable from reset.
 Not here: landing delays, stretched-mode +1, HMOVE, RESMPx (spec 6.5/6.6, still [check]).
 """
 
@@ -38,7 +39,9 @@ class TiaObjpos:
         copy = int((q == C3 and nusiz in EN3) or (q == C7 and nusiz in EN7) or (q == C15 and nusiz in EN15))
         return self.q, main, copy
 
-    def step(self, rst, step, res, nusiz):
+    def step(self, rst, step, res, nusiz, inj=0):
+        if inj:
+            self.q = ERR   # test hook, see header
         if rst or res:
             self.q = 0
         elif step:
