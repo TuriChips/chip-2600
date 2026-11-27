@@ -8,3 +8,4 @@ rtl/datapath/tia_mbgfx.v
 rtl/datapath/tia_poly6.v
 rtl/datapath/tia_objdec.v
 rtl/datapath/tia_objpos.v
+rtl/control/tia_prio.v

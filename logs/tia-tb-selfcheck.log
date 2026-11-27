@@ -3,6 +3,7 @@ unmutated cx model: PASS (657 checks)
 unmutated pf model: PASS (5778 checks)
 unmutated regs model: PASS (116947 checks)
 unmutated mbgfx model: PASS (414 checks)
+unmutated prio model: PASS: 1753 checks
 tb/tia/tb_pgfx.sv:15: error: port ``refl'' is not a port of dut.
 tb/tia/tb_pgfx.sv:15: error: port ``gfx'' is not a port of dut.
 tb/tia/tb_pgfx.sv:27: error: port ``refl'' is not a port of p0.
@@ -283,3 +284,22 @@ mutant mbgfx 8-wide loses first clock: FAIL: 22 of 414 checks
 mutant mbgfx rst ignored: FAIL: 4 of 414 checks
 mutant mbgfx width latched at start: FAIL: 2 of 414 checks
 mutant mbgfx en latched at start: FAIL: 16 of 414 checks
+mutant prio P1 above P0: FAIL: 216 of 1753 checks
+mutant prio PF above players when PFP = 0: FAIL: 210 of 1753 checks
+mutant prio PFP ignored: FAIL: 180 of 1753 checks
+mutant prio PFP: P1 above P0: FAIL: 72 of 1753 checks
+mutant prio PFP: PF above only BL (ball stays below players): FAIL: 64 of 1753 checks
+mutant prio missile colour from COLUP1 (M0): FAIL: 129 of 1753 checks
+mutant prio M1 uses COLUP0: FAIL: 65 of 1753 checks
+mutant prio BL ignored: FAIL: 69 of 1753 checks
+mutant prio PF ignored: FAIL: 73 of 1753 checks
+mutant prio SCORE ignored: FAIL: 4 of 1753 checks
+mutant prio SCORE halves swapped: FAIL: 4 of 1753 checks
+mutant prio SCORE takes COLUP0 on both halves: FAIL: 2 of 1753 checks
+mutant prio blk ignored: FAIL: 1027 of 1753 checks
+mutant prio blk zeroes lum only: FAIL: 1027 of 1753 checks
+mutant prio blk zeroes col only: FAIL: 1027 of 1753 checks
+mutant prio blk shows BK instead of 0: FAIL: 1027 of 1753 checks
+mutant prio lum and col swapped: FAIL: 725 of 1753 checks
+mutant prio lum from D4-D2: FAIL: 719 of 1753 checks
+mutant prio BK colour from COLUPF: FAIL: 23 of 1753 checks
