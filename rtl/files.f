@@ -5,3 +5,4 @@
 rtl/datapath/m6532.v
 rtl/datapath/tia_pgfx.v
 rtl/datapath/tia_mbgfx.v
+rtl/control/tia_prio.v
