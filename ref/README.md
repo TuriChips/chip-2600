@@ -20,3 +20,6 @@ The TIA model is not started: it waits for the §4.2 RSYNC/Φ2 check on turichip
 `tia_regs.py` (chip-2600#22): TIA write side, one `step(rst, wr, a, d)` per `clk`. Write map §6.1, vertical delay §6.5
 (GRP0 write: GRP1 new → old; GRP1 write: GRP0 new → old and ENABL new → old), HMCLR §6.6, reset §5. Packing and the
 registered-strobe assumption are in the file header. The rest of the TIA model still waits on §4.2.
+
+`tia_mbgfx.py` (chip-2600#53): missile / ball graphics run, `step(rst, step, start, size, en)`: a run of 1/2/4/8 colour clocks
+(`size` 00..11), `start` wins over `step` and restarts, `gfx = drawing & en`. Harness: `tests/random/run_tia_mbgfx.py`.

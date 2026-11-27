@@ -1,0 +1,2 @@
+dut=ref live=0 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 starts=241830 size_0/1/2/3=28160/33073/50464/130133 en0_starts=60912 restarts_while_drawing=148087 one_bits=720098 seeds_with_diffs=0 diffs=0
+dut=ref live=1 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 starts=241522 size_0/1/2/3=60690/61047/60001/59784 en0_starts=60229 restarts_while_drawing=105327 one_bits=528289 seeds_with_diffs=0 diffs=0
