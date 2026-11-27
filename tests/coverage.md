@@ -101,3 +101,18 @@ Run: `tests/tia/run_tia.sh` (Icarus; runs `cx` and `pf` after `poly` and `regs`)
 | §6.4 | A write shows from the next index (PF1 and PF2 changed mid-scan) | `tb_pf` T4 ("written … index") | written |
 
 Not covered: CXBLPF D6 and its `d_oe[0]` (§6.1 [check: LD s2 C6]); the colour clock from which a mid-line PF write is visible, and the RHB/CNT-to-first-bit delay (§6.4 [check], turichips#48); the index after bit 19 without a `start`; `rst` in `tia_inpt` (latch state after reset: spec silent); `tia_rd` `d_out` where `d_oe` = 0; SCORE and PFP (§6.9, priority mux).
+
+## TIA player graphics scanner (`tb/tia/tb_pgfx.sv`, spec §6.5 Players and Vertical delay, chip-2600#38)
+Run: `tests/tia/run_tia.sh` (runs `pgfx` once `rtl/datapath/tia_pgfx.v` exists; prints SKIPPED until then). Self-check: `tests/tia/selfcheck/run.sh`, log `logs/tia-tb-selfcheck.log`: the bench passes on the scratch model `pgfx.v` (with `regs.v`) and fails all 28 pgfx mutants. **Not yet run on the RTL**: `tia_pgfx` is #37, not merged. **Port names are assumed** (#37 gives behaviour only): `clk rst step start grp_new[7:0] grp_old[7:0] vdel refp nusiz[2:0] pgfx`, as in Beru's #43 harness. Convention: after the clk edge with `start` the output shows bit 0; a bit lasts 1/2/4 edges with `step`; the step after bit 7 gives 0.
+
+| Spec | Behaviour | Test | Status |
+|------|-----------|------|--------|
+| §6.5 | All 8 NUSIZ D2-D0 codes: 101 = 2, 111 = 4, the other six = 1 clock per bit; each of the 8 bits alone, all ones, all zeros, both bit orders | `tb_pgfx` T5 "bit n", "all ones/zeros" | written |
+| §6.5 | REFPx D3 = 0 scans D7 first, = 1 D0 first | `tb_pgfx` T5 (every scan, `refp` 0/1) | written |
+| §6.5 | VDELPx D0 = 1 selects old, 0 new (walking-bit patterns that differ between new and old) | `tb_pgfx` T5 "vdel walking" | written |
+| §6.5 | Output 0 outside a scan: after `rst`, with steps but no `start`, after bit 7 and on later steps, `rst` mid-scan | `tb_pgfx` T5 ("output 0 ...", "rst stops the scan") | written |
+| §6.5 | `start` restarts mid-bit, mid-scan and from the last bit, at each width; start after the end draws again; `step` = 0 holds | `tb_pgfx` T5 "restart", "hold" | written |
+| §6.5 Vertical delay | GRP0/GRP1 write order through `tia_regs`: GRP0 write copies P1 new to old, GRP1 write copies P0 new to old; VDELP0/VDELP1 in all four combinations; VDELBL does not affect players; a lone GRP0 write leaves P0 old | `tb_pgfx` T5 "e2e" | written |
+| §6.5 | NUSIZ D2-D0 (not D5-D4) and REFP D3 (not other bits) reach the player through `tia_regs` | `tb_pgfx` T5 "e2e" | written |
+
+Not covered: when a copy starts (position counter, [check] turichips#48), the stretched-mode +1 start delay, `start` and `step` on the same edge, mid-scan changes of GRP/VDEL/REFP/NUSIZ, copies (§6.5 NUSIZ decode, a later block), missiles, RESMP.

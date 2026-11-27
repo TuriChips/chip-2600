@@ -8,6 +8,7 @@ echo "unmutated poly model: $(one poly $D/poly.v)" | tee -a $L
 echo "unmutated cx model: $(one cx $D/cx.v)" | tee -a $L
 echo "unmutated pf model: $(one pf $D/pf.v)" | tee -a $L
 echo "unmutated regs model: $(one regs $D/regs.v)" | tee -a $L
+echo "unmutated pgfx model: $(one pgfx "$D/pgfx.v $D/regs.v")" | tee -a $L
 mut() { n=$1; t=$2; f=$3; sed "$4" $D/$f > $M/$f; cmp -s $D/$f $M/$f && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
   r=$(one $t $M/$f); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
 Q="'"
@@ -50,4 +51,36 @@ mut "pf start ignored" pf pf.v 's/if (rst||start) i<=0;/if (rst) i<=0;/'
 mut "pf rst ignored" pf pf.v 's/if (rst||start) i<=0;/if (start) i<=0;/'
 mut "pf advances without step" pf pf.v 's/else if (step) i/else i/'
 mut "pf advances every 2 steps" pf pf.v 's/else if (step) i<=(i==19)?19:i+1;/else if (step) i<=(i>=18)?19:i+2;/'
+mutp() { n=$1; sed "$2" $D/pgfx.v > $M/pgfx.v; cmp -s $D/pgfx.v $M/pgfx.v && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
+  r=$(one pgfx "$M/pgfx.v $D/regs.v"); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
+mutp "pgfx ignores vdel (always new)" 's/vdel ? grp_old : grp_new/grp_new/'
+mutp "pgfx vdel inverted" 's/vdel ? grp_old : grp_new/vdel ? grp_new : grp_old/'
+mutp "pgfx always old" 's/vdel ? grp_old : grp_new/grp_old/'
+mutp "pgfx refp ignored (D7 first)" 's/refp ? g\[i\] : g\[7-i\]/g[7-i]/'
+mutp "pgfx refp ignored (D0 first)" 's/refp ? g\[i\] : g\[7-i\]/g[i]/'
+mutp "pgfx refp inverted" 's/refp ? g\[i\] : g\[7-i\]/refp ? g[7-i] : g[i]/'
+mutp "pgfx 101 is 1 clk" 's/nusiz==3.b101 ? 2.d1/nusiz==3\x27b101 ? 2\x27d0/'
+mutp "pgfx 101 is 4 clk" 's/nusiz==3.b101 ? 2.d1/nusiz==3\x27b101 ? 2\x27d3/'
+mutp "pgfx 111 is 2 clk" 's/nusiz==3.b111 ? 2.d3/nusiz==3\x27b111 ? 2\x27d1/'
+mutp "pgfx 111 is 1 clk" 's/nusiz==3.b111 ? 2.d3/nusiz==3\x27b111 ? 2\x27d0/'
+mutp "pgfx 110 is 2 clk" 's/nusiz==3.b111 ? 2.d3 : 2.d0/nusiz==3\x27b111 ? 2\x27d3 : nusiz==3\x27b110 ? 2\x27d1 : 2\x27d0/'
+mutp "pgfx 100 is 2 clk" 's/nusiz==3.b111 ? 2.d3 : 2.d0/nusiz==3\x27b111 ? 2\x27d3 : nusiz==3\x27b100 ? 2\x27d1 : 2\x27d0/'
+mutp "pgfx 001 is 2 clk" 's/nusiz==3.b111 ? 2.d3 : 2.d0/nusiz==3\x27b111 ? 2\x27d3 : nusiz==3\x27b001 ? 2\x27d1 : 2\x27d0/'
+mutp "pgfx 011 is 4 clk" 's/nusiz==3.b111 ? 2.d3 : 2.d0/nusiz==3\x27b111 ? 2\x27d3 : nusiz==3\x27b011 ? 2\x27d3 : 2\x27d0/'
+mutp "pgfx 010 is 2 clk" 's/nusiz==3.b111 ? 2.d3 : 2.d0/nusiz==3\x27b111 ? 2\x27d3 : nusiz==3\x27b010 ? 2\x27d1 : 2\x27d0/'
+mutp "pgfx draws without start" 's/reg act;/reg act = 1;/; s/if (rst) begin act<=0;/if (rst) begin act<=1;/'
+mutp "pgfx scan loops after bit 7" 's/if (i==7) act<=0; else i<=i+1;/i<=i+1;/'
+mutp "pgfx stops after bit 6" 's/if (i==7) act<=0;/if (i==6) act<=0;/'
+mutp "pgfx start ignored while drawing" 's/else if (start) begin/else if (start \&\& !act) begin/'
+mutp "pgfx restart keeps the bit index" 's/else if (start) begin act<=1; i<=0; c<=0; end/else if (start) begin act<=1; c<=0; end/'
+mutp "pgfx restart keeps the clock count" 's/else if (start) begin act<=1; i<=0; c<=0; end/else if (start) begin act<=1; i<=0; end/'
+mutp "pgfx rst ignored" 's/if (rst) begin act<=0; i<=0; c<=0; end/if (rst) begin i<=0; c<=0; end/'
+mutp "pgfx advances without step" 's/else if (step \&\& act)/else if (act)/'
+mutp "pgfx output not gated by act" 's/assign pgfx = act \&/assign pgfx = /'
+mutr() { n=$1; sed "$2" $D/regs.v > $M/regs.v; cmp -s $D/regs.v $M/regs.v && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
+  r=$(one pgfx "$D/pgfx.v $M/regs.v"); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
+mutr "pgfx e2e: GRP0 write forgets P1 old" 's/27: begin grp0_new<=d; grp1_old<=grp1_new; end/27: grp0_new<=d;/'
+mutr "pgfx e2e: GRP1 write forgets P0 old" 's/grp0_old<=grp0_new; enabl_old/enabl_old/'
+mutr "pgfx e2e: GRP0 write copies P0 new to old" 's/27: begin grp0_new<=d; grp1_old<=grp1_new; end/27: begin grp0_new<=d; grp1_old<=grp1_new; grp0_old<=grp0_new; end/'
+mutr "pgfx e2e: NUSIZ stores D5-D4 in the width bits" 's/4: nusiz0<={d\[5\],d\[4\],d\[2:0\]};/4: nusiz0<={d[2:0],d[5],d[4]};/'
 rm -rf $M; exit $rc

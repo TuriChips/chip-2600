@@ -2,6 +2,7 @@ unmutated poly model: PASS (1032 checks)
 unmutated cx model: PASS (657 checks)
 unmutated pf model: PASS (5778 checks)
 unmutated regs model: PASS (116947 checks)
+unmutated pgfx model: PASS (8824 checks)
 mutant GRP0 write also copies ENABL new to old: FAIL: 389 of 116947 checks
 mutant GRP1 write forgets GRP0 old: FAIL: 3019 of 116947 checks
 mutant HMCLR leaves HMBL: FAIL: 20 of 116947 checks
@@ -41,3 +42,31 @@ mutant pf start ignored: FAIL: 2033 of 5778 checks
 mutant pf rst ignored: FAIL: 1 of 5778 checks
 mutant pf advances without step: FAIL: 1 of 5778 checks
 mutant pf advances every 2 steps: FAIL: 1906 of 5778 checks
+mutant pgfx ignores vdel (always new): FAIL: 951 of 8824 checks
+mutant pgfx vdel inverted: FAIL: 3926 of 8824 checks
+mutant pgfx always old: FAIL: 2975 of 8824 checks
+mutant pgfx refp ignored (D7 first): FAIL: 1178 of 8824 checks
+mutant pgfx refp ignored (D0 first): FAIL: 1278 of 8824 checks
+mutant pgfx refp inverted: FAIL: 2456 of 8824 checks
+mutant pgfx 101 is 1 clk: FAIL: 336 of 8824 checks
+mutant pgfx 101 is 4 clk: FAIL: 376 of 8824 checks
+mutant pgfx 111 is 2 clk: FAIL: 648 of 8824 checks
+mutant pgfx 111 is 1 clk: FAIL: 674 of 8824 checks
+mutant pgfx 110 is 2 clk: FAIL: 208 of 8824 checks
+mutant pgfx 100 is 2 clk: FAIL: 222 of 8824 checks
+mutant pgfx 001 is 2 clk: FAIL: 204 of 8824 checks
+mutant pgfx 011 is 4 clk: FAIL: 237 of 8824 checks
+mutant pgfx 010 is 2 clk: FAIL: 205 of 8824 checks
+mutant pgfx draws without start: FAIL: 3 of 8824 checks
+mutant pgfx scan loops after bit 7: FAIL: 352 of 8824 checks
+mutant pgfx stops after bit 6: FAIL: 261 of 8824 checks
+mutant pgfx start ignored while drawing: FAIL: 12 of 8824 checks
+mutant pgfx restart keeps the bit index: FAIL: 2131 of 8824 checks
+mutant pgfx restart keeps the clock count: FAIL: 4 of 8824 checks
+mutant pgfx rst ignored: FAIL: 3 of 8824 checks
+mutant pgfx advances without step: FAIL: 2 of 8824 checks
+mutant pgfx output not gated by act: FAIL: 361 of 8824 checks
+mutant pgfx e2e: GRP0 write forgets P1 old: FAIL: 12 of 8824 checks
+mutant pgfx e2e: GRP1 write forgets P0 old: FAIL: 12 of 8824 checks
+mutant pgfx e2e: GRP0 write copies P0 new to old: PASS (8824 checks)
+mutant pgfx e2e: NUSIZ stores D5-D4 in the width bits: FAIL: 8 of 8824 checks
