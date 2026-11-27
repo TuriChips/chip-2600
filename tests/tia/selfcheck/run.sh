@@ -8,6 +8,7 @@ echo "unmutated poly model: $(one poly $D/poly.v)" | tee -a $L
 echo "unmutated cx model: $(one cx $D/cx.v)" | tee -a $L
 echo "unmutated pf model: $(one pf $D/pf.v)" | tee -a $L
 echo "unmutated regs model: $(one regs $D/regs.v)" | tee -a $L
+echo "unmutated mbgfx model: $(one mbgfx $D/mbgfx.v)" | tee -a $L
 echo "unmutated pgfx model: $(one pgfx "$D/pgfx.v $D/regs.v")" | tee -a $L
 mut() { n=$1; t=$2; f=$3; sed "$4" $D/$f > $M/$f; cmp -s $D/$f $M/$f && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
   r=$(one $t $M/$f); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
@@ -83,4 +84,15 @@ mutr "pgfx e2e: GRP0 write forgets P1 old" 's/27: begin grp0_new<=d; grp1_old<=g
 mutr "pgfx e2e: GRP1 write forgets P0 old" 's/grp0_old<=grp0_new; enabl_old/enabl_old/'
 mutr "pgfx e2e: GRP0 write copies P0 new to old" 's/27: begin grp0_new<=d; grp1_old<=grp1_new; end/27: begin grp0_new<=d; grp1_old<=grp1_new; grp0_old<=grp0_new; end/'
 mutr "pgfx e2e: NUSIZ stores D5-D4 in the width bits" 's/4: nusiz0<={d\[5\],d\[4\],d\[2:0\]};/4: nusiz0<={d[2:0],d[5],d[4]};/'
+mutm() { n=$1; sed "$2" $D/mbgfx.v > $M/mbgfx.v; cmp -s $D/mbgfx.v $M/mbgfx.v && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
+  r=$(one mbgfx $M/mbgfx.v); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
+mutm "mbgfx width 1,1,2,4" 's/n+1 >= w/n+1 >= (w>>1 | 1)/'
+mutm "mbgfx restart keeps the step count" 's/else if (start) begin act<=1; n<=0; end/else if (start) begin act<=1; end/'
+mutm "mbgfx en ignored" 's/assign gfx = act \& en/assign gfx = act/'
+mutm "mbgfx step wins over start" 's/else if (start) begin/else if (start \&\& !step) begin/'
+mutm "mbgfx counts clocks, not steps" 's/else if (step \&\& act)/else if (act)/'
+mutm "mbgfx 8-wide loses first clock" 's/assign gfx = act \& en/assign gfx = act \& en \& ~(n==0 \&\& size==3)/'
+mutm "mbgfx rst ignored" 's/if (rst) begin act<=0; n<=0; end/if (rst) begin n<=0; end/'
+mutm "mbgfx width latched at start" "s/wire \[3:0\] w = 4'd1 << size;/reg [3:0] w; always @(posedge clk) if (start) w <= 4'd1<<size;/"
+mutm "mbgfx en latched at start" 's/assign gfx = act \& en/reg el; always @(posedge clk) if (start) el<=en; assign gfx = act \& el/'
 rm -rf $M; exit $rc

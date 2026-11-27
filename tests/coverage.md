@@ -79,6 +79,9 @@ Run: `tests/tia/run_tia.sh` (Icarus). RTL log: `logs/tia-tb-rtl.log` (written wh
 | §6.5 | Vertical delay: GRP0 write → GRP1 old = GRP1 new and does not touch GRP0 old or ENABL old; GRP1 write → GRP0 old = GRP0 new and ENABL old = ENABL new; an ENABL write changes no old copy; 3000 random writes against a model | `tb_regs` T4 | written |
 | §6.6 | HMCLR clears HMP0, HMP1, HMM0, HMM1, HMBL and nothing else; an HM write after HMCLR loads, one HM write leaves the others | `tb_regs` T4 | written |
 | §5 | After `rst`, every stored output and every strobe is 0 (from a fully loaded state, vertical-delay copies included), compared with `!==` so X fails | `tb_regs` T5 | written |
+| §6.5 | Missile/ball width 1, 2, 4, 8 colour clocks (size 00-11) with step held and with step gaps (run counts steps) | `tb_mbgfx` T5 "run" | written |
+| §6.5 | `en` = 0 keeps `gfx` 0 for the whole run; `en` toggled mid-run follows live, run count keeps going | `tb_mbgfx` T5 "en=0", "entog" | written |
+| §6.5 | `start` restarts a run at every step position and width; `start` + `step` same clock (start wins, step not counted); width read live; `rst` idle | `tb_mbgfx` T5 "restart", "start+step", "live width", "rst" | written |
 
 Not covered: the `$00`–`$2C` write-time phase (Φ2 fall alignment, §4.2 [check]); `rst` and `wr` in the same clk (spec silent); `tia_hdec`'s delay boxes and END's reset route (§4.1 [check]); NUSIZ gating of c3/c7/c15 (§6.5 [check]); the strobes' own timing relative to `wr` (registered or not): not in the spec.
 
