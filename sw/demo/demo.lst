@@ -20,111 +20,113 @@ F01D  A9 3C       2            lda #60
 F01F  85 81       3            sta $81
 F021  A9 02       2            lda #2
 F023  85 82       3            sta $82
-F025  85 02       3            sta $02
-F027  A9 02       2  frame:    lda #2
-F029  85 00       3            sta $00
-F02B  85 02       3            sta $02
-F02D  85 02       3            sta $02
-F02F  A9 00       2            lda #0
+F025  A9 02       2            lda #2
+F027  85 01       3            sta $01
+F029  85 02       3            sta $02
+F02B  A9 02       2  frame:    lda #2
+F02D  85 00       3            sta $00
+F02F  85 02       3            sta $02
 F031  85 02       3            sta $02
-F033  85 00       3  vb_start: sta $00
-F035  A9 2B       2            lda #43
-F037  8D 96 02    4  vb_t:     sta $296
-F03A  A9 2C       2            lda #44
-F03C  A2 00       2            ldx #0
-F03E  20 ED F0    6            jsr posobj
-F041  A9 70       2            lda #112
-F043  A2 01       2            ldx #1
-F045  20 ED F0    6            jsr posobj
-F048  A5 81       3            lda $81
-F04A  A2 04       2            ldx #4
-F04C  20 ED F0    6            jsr posobj
-F04F  85 02       3            sta $02
-F051  85 2A       3            sta $2A
-F053  AD 84 02    4  vbwait:   lda $284
-F056  D0 FB       2            bne vbwait
-F058  A0 18       2            ldy #24
-F05A  A2 A8       2            ldx #168
-F05C  85 02       3            sta $02
-F05E  A9 02       2  kernel_start,kband:lda #2
-F060  85 01       3            sta $01
-F062  B9 00 F5    5            lda pf0tab,y
-F065  85 0D       3            sta $0D
-F067  B9 20 F5    5            lda pf1tab,y
-F06A  85 0E       3            sta $0E
-F06C  B9 40 F5    5            lda pf2tab,y
-F06F  85 0F       3            sta $0F
-F071  B9 60 F5    5            lda coltab,y
-F074  85 09       3            sta $09
-F076  B9 80 F5    5            lda pfcol,y
-F079  85 08       3            sta $08
-F07B  A9 07       2            lda #7
-F07D  85 84       3            sta $84
-F07F  85 02       3            sta $02
-F081  A9 00       2  kspr:     lda #0
-F083  85 01       3            sta $01
-F085  BD 00 F2    5            lda sp0,x
-F088  85 1B       3            sta $1B
-F08A  BD 00 F3    5            lda sp1,x
-F08D  85 1C       3            sta $1C
-F08F  BD 00 F4    5            lda bl,x
-F092  85 1F       3            sta $1F
-F094  CA          2            dex
-F095  C6 84       5            dec $84
-F097  85 02       3            sta $02
-F099  D0 E6       2            bne kspr
-F09B  88          2            dey
-F09C  D0 C0       2            bne kband
-F09E  A9 02       2  kernel_end:lda #2
-F0A0  85 01       3            sta $01
-F0A2  A9 23       2            lda #35
-F0A4  8D 96 02    4  ov_t:     sta $296
-F0A7  E6 80       5            inc $80
-F0A9  A5 81       3            lda $81
-F0AB  18          2            clc
-F0AC  65 82       3            adc $82
-F0AE  85 81       3            sta $81
-F0B0  C9 88       2            cmp #136
-F0B2  B0 04       2            bcs flip
-F0B4  C9 28       2            cmp #40
-F0B6  B0 0B       2            bcs bounced
-F0B8  A9 00       2  flip:     lda #0
-F0BA  38          2            sec
-F0BB  E5 82       3            sbc $82
-F0BD  85 82       3            sta $82
-F0BF  A9 08       2            lda #8
-F0C1  85 83       3            sta $83
-F0C3  A5 80       3  bounced:  lda $80
-F0C5  4A          2            lsr
-F0C6  4A          2            lsr
-F0C7  4A          2            lsr
-F0C8  4A          2            lsr
-F0C9  29 07       2            and #7
-F0CB  AA          2            tax
-F0CC  BD A0 F5    5            lda notes,x
-F0CF  85 17       3            sta $17
-F0D1  A9 06       2            lda #6
-F0D3  85 19       3            sta $19
-F0D5  A5 83       3            lda $83
-F0D7  F0 0A       2            beq noblip
-F0D9  C6 83       5            dec $83
-F0DB  A9 03       2            lda #3
-F0DD  85 17       3            sta $17
-F0DF  A9 0C       2            lda #12
-F0E1  85 19       3            sta $19
-F0E3  AD 84 02    4  noblip,ovwait:lda $284
-F0E6  D0 FB       2            bne ovwait
-F0E8  85 02       3            sta $02
-F0EA  4C 27 F0    3            jmp frame
-F0ED  85 02       3  posobj:   sta $02
-F0EF  38          2            sec
-F0F0  E9 0F       2  posdiv:   sbc #15
-F0F2  B0 FC       2            bcs posdiv
-F0F4  49 07       2            eor #7
-F0F6  0A          2            asl
-F0F7  0A          2            asl
-F0F8  0A          2            asl
-F0F9  0A          2            asl
-F0FA  95 20       4            sta $20,x
-F0FC  95 10       4            sta $10,x
-F0FE  60          6            rts
+F033  A9 00       2            lda #0
+F035  85 02       3            sta $02
+F037  85 00       3  vb_start: sta $00
+F039  A9 2C       2            lda #44
+F03B  8D 96 02    4  vb_t:     sta $296
+F03E  A9 2C       2            lda #44
+F040  A2 00       2            ldx #0
+F042  20 F1 F0    6            jsr posobj
+F045  A9 70       2            lda #112
+F047  A2 01       2            ldx #1
+F049  20 F1 F0    6            jsr posobj
+F04C  A5 81       3            lda $81
+F04E  A2 04       2            ldx #4
+F050  20 F1 F0    6            jsr posobj
+F053  85 02       3            sta $02
+F055  85 2A       3            sta $2A
+F057  AD 84 02    4  vbwait:   lda $284
+F05A  D0 FB       2            bne vbwait
+F05C  A0 18       2            ldy #24
+F05E  A2 A8       2            ldx #168
+F060  85 02       3            sta $02
+F062  A9 02       2  kernel_start,kband:lda #2
+F064  85 01       3            sta $01
+F066  B9 00 F5    5            lda pf0tab,y
+F069  85 0D       3            sta $0D
+F06B  B9 20 F5    5            lda pf1tab,y
+F06E  85 0E       3            sta $0E
+F070  B9 40 F5    5            lda pf2tab,y
+F073  85 0F       3            sta $0F
+F075  B9 60 F5    5            lda coltab,y
+F078  85 09       3            sta $09
+F07A  B9 80 F5    5            lda pfcol,y
+F07D  85 08       3            sta $08
+F07F  A9 07       2            lda #7
+F081  85 84       3            sta $84
+F083  85 02       3            sta $02
+F085  A9 00       2  kspr:     lda #0
+F087  85 01       3            sta $01
+F089  BD 00 F2    5            lda sp0,x
+F08C  85 1B       3            sta $1B
+F08E  BD 00 F3    5            lda sp1,x
+F091  85 1C       3            sta $1C
+F093  BD 00 F4    5            lda bl,x
+F096  85 1F       3            sta $1F
+F098  CA          2            dex
+F099  C6 84       5            dec $84
+F09B  85 02       3            sta $02
+F09D  D0 E6       2            bne kspr
+F09F  88          2            dey
+F0A0  D0 C0       2            bne kband
+F0A2  A9 02       2  kernel_end:lda #2
+F0A4  85 01       3            sta $01
+F0A6  A9 24       2            lda #36
+F0A8  8D 96 02    4  ov_t:     sta $296
+F0AB  E6 80       5            inc $80
+F0AD  A5 81       3            lda $81
+F0AF  18          2            clc
+F0B0  65 82       3            adc $82
+F0B2  85 81       3            sta $81
+F0B4  C9 88       2            cmp #136
+F0B6  B0 04       2            bcs flip
+F0B8  C9 28       2            cmp #40
+F0BA  B0 0B       2            bcs bounced
+F0BC  A9 00       2  flip:     lda #0
+F0BE  38          2            sec
+F0BF  E5 82       3            sbc $82
+F0C1  85 82       3            sta $82
+F0C3  A9 08       2            lda #8
+F0C5  85 83       3            sta $83
+F0C7  A5 80       3  bounced:  lda $80
+F0C9  4A          2            lsr
+F0CA  4A          2            lsr
+F0CB  4A          2            lsr
+F0CC  4A          2            lsr
+F0CD  29 07       2            and #7
+F0CF  AA          2            tax
+F0D0  BD A0 F5    5            lda notes,x
+F0D3  85 17       3            sta $17
+F0D5  A9 06       2            lda #6
+F0D7  85 19       3            sta $19
+F0D9  A5 83       3            lda $83
+F0DB  F0 0A       2            beq noblip
+F0DD  C6 83       5            dec $83
+F0DF  A9 03       2            lda #3
+F0E1  85 17       3            sta $17
+F0E3  A9 0C       2            lda #12
+F0E5  85 19       3            sta $19
+F0E7  AD 84 02    4  noblip,ovwait:lda $284
+F0EA  D0 FB       2            bne ovwait
+F0EC  85 02       3            sta $02
+F0EE  4C 2B F0    3            jmp frame
+F0F1  85 02       3  posobj:   sta $02
+F0F3  38          2            sec
+F0F4  E9 0F       2  posdiv:   sbc #15
+F0F6  B0 FC       2            bcs posdiv
+F0F8  49 07       2            eor #7
+F0FA  0A          2            asl
+F0FB  0A          2            asl
+F0FC  0A          2            asl
+F0FD  0A          2            asl
+F0FE  95 20       4            sta $20,x
+F100  95 10       4            sta $10,x
+F102  60          6            rts

@@ -173,7 +173,7 @@ P(f'\nKernel worst case: {allmax} cycles of 76 (every path ends in STA WSYNC at 
 P(f'Kernel exit (last sprite line -> overscan): {sorted(set(exit_cycles))} cycles from line start to kernel_end.')
 
 # ---------------------------------------------------------------- RIOT timer windows
-P('\nTimer windows (RIOT TIM64T, 64 cycles per count; the poll loop adds <= 6):')
+P('\nTimer windows (RIOT TIM64T; INTIM first reads 0 at pulse (N-1)*64+1 after the write, spec 7.2; the 7-cycle poll loop adds <= 7):')
 def straight(frm, to_label):
     a = labels[frm]; t = labels[to_label]; tot = 0
     while True:
@@ -185,9 +185,10 @@ def timer(name, frm, lab, lines_n, extra):
     global fail
     c, e = straight(frm, lab); c += extra
     prev = max(x for x in byaddr if x < e['pc']); n = byaddr[prev]['v']
-    lo = c + 64 * n; hi = lo + 6; wl, wh = (lines_n - 1) * 76, lines_n * 76
+    lo = c + 64 * (n - 1) + 1; hi = lo + 7;  # first INTIM read of 0: spec 7.2, pulse (N-1)*64+1; poll loop is 7 cycles
+    wl, wh = (lines_n - 1) * 76, lines_n * 76
     ok = wl <= lo and hi < wh; fail |= not ok
-    P(f'  {name}: TIM64T={n} written at cycle {c}; expires {lo}..{hi}; must fall in line {lines_n} = {wl}..{wh - 1}: {"ok" if ok else "FAIL"}')
+    P(f'  {name}: TIM64T={n} written at cycle {c}; first zero {lo}..{hi}; must fall in line {lines_n} = {wl}..{wh - 1}: {"ok" if ok else "FAIL"}')
 timer('VBLANK (37 lines)', 'vb_start', 'vb_t', 37, 0)
 timer('overscan (30 lines)', 'kernel_end', 'ov_t', 30, min(exit_cycles))
 P(f'\nFrame: 3 + 37 + 192 + 30 = {3 + 37 + 192 + 30} lines; kernel = {BANDS} bands x (1 setup + 7 sprite) = {BANDS * 8} lines.')
