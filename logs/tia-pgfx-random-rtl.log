@@ -1,0 +1,1 @@
+dut=rtl live=0 seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 starts=161362 width_1/2/4=112668/19782/28912 reflected=50907 vdel_old=48866 restarts_while_drawing=129259 one_bits=267174 seeds_with_diffs=0 diffs=0
