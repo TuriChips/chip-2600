@@ -16,3 +16,7 @@ Open items, as class attributes so a ruling is one line:
 - ÷1 second wrap (`$00` → `$FF` again, 256 pulses after underflow) re-sets the flag; spec §7.2 [check].
 
 The TIA model is not started: it waits for the §4.2 RSYNC/Φ2 check on turichips#48.
+
+`tia_regs.py` (chip-2600#22): TIA write side, one `step(rst, wr, a, d)` per `clk`. Write map §6.1, vertical delay §6.5
+(GRP0 write: GRP1 new → old; GRP1 write: GRP0 new → old and ENABL new → old), HMCLR §6.6, reset §5. Packing and the
+registered-strobe assumption are in the file header. The rest of the TIA model still waits on §4.2.

@@ -1,0 +1,18 @@
+# chip-2600#22 TIA write-side random run, model vs model (RTL tia_regs not merged yet), 2026-11-27T10:41:02Z
+dut=ref seeds=200 clks/seed=5000 total_clks=1000000 addresses_seen=64/64 seeds_with_diffs=0 diffs=0
+seed 20: 4793 diffs; first at clk 36: grp0_old ref=0x23 dut=0x0; input (rst,wr,a,d)=(0, 1, 28, 22)
+dut=mutant:grp1_old_from_old seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=69624
+seed 20: 1979 diffs; first at clk 97: enabl_old ref=0x1 dut=0x0; input (rst,wr,a,d)=(0, 1, 28, 190)
+dut=mutant:no_enabl_old seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=33974
+seed 20: 460 diffs; first at clk 194: enabl_old ref=0x1 dut=0x0; input (rst,wr,a,d)=(0, 1, 27, 0)
+dut=mutant:grp0_copies_enabl seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=10920
+seed 20: 2173 diffs; first at clk 35: hmbl ref=0x0 dut=0xf; input (rst,wr,a,d)=(0, 1, 43, 0)
+dut=mutant:hmclr_misses_hmbl seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=31931
+seed 20: 10150 diffs; first at clk 3: hmp0 ref=0x1 dut=0x2; input (rst,wr,a,d)=(0, 1, 32, 17)
+dut=mutant:hm_mask_d3 seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=186103
+seed 20: 39 diffs; first at clk 54: cxclr_s ref=0x0 dut=0x1; input (rst,wr,a,d)=(0, 1, 45, 255)
+dut=mutant:decode_2d seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=559
+seed 18: 354 diffs; first at clk 305: grp0_old ref=0x0 dut=0x33; input (rst,wr,a,d)=(1, 1, 31, 231)
+dut=mutant:rst_keeps_old seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=15 diffs=8476
+seed 20: 8052 diffs; first at clk 22: nusiz1 ref=0xd dut=0x11; input (rst,wr,a,d)=(0, 1, 5, 85)
+dut=mutant:nusiz_d3 seeds=20 clks/seed=5000 total_clks=100000 addresses_seen=64/64 seeds_with_diffs=20 diffs=77048
