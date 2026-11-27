@@ -21,3 +21,9 @@ Note: ref vs ref is 0 diffs by construction. The only independent check today is
 - Programs: the random images from `tests/core/gen_cycles6502.py` (s1..s4) × 3 rdy modes, 4000 cycles each. `irq_n`/`nmi_n`/`so_n` tied to 1 (D1); not covered here, note for R-family reuse.
 - Run: `heavy tests/random/run_ce_rdy.sh [RTL_DIR] [N_PROGRAMS]` (about 11 s for 4 programs). Log: `logs/ce-rdy-random.log`.
 - Self-check: mutants of `m6502_timing.v` (rdy sampled on every clock; rdy honoured on writes; t counter clocked by `ce | ~rdy`) all fail; the unmodified copy passes (`logs/ce-rdy-random.log`).
+
+## TIA write side (chip-2600#22)
+- `run_tia_regs.py`: random (`rst`, `wr`, `a`, `d`) sequences, all 64 addresses (45%+ of writes on GRP0/GRP1/ENABL/HM*/HMCLR), resets, compared every `clk` on all 48 outputs against `ref/tia_regs.py`. `--dut ref` (self-check), `--dut mutant:NAME` (8 planted bugs, all caught: `logs/tia-regs-random.log`), `--dut rtl` (compiles `tb_tia_regs.sv` + `rtl/control/tia_regs.v`, same compare).
+- `tb_tia_regs.sv`: generated from the model's port list (names and widths from #20); samples 1 ns after each posedge. First clk of every run is a reset.
+- Status: `tia_regs` RTL is not merged, so `--dut rtl` has only been checked against a throwaway stub written from the same table (plumbing only, not evidence). Run `python3 tests/random/run_tia_regs.py --dut rtl --seeds 200` once Zura's PR lands.
+- Open for #20: strobes are modelled as registered pulses (high in the cycle after the write edge); `TiaRegs.STROBES_REGISTERED` documents it.
