@@ -27,3 +27,10 @@ Note: ref vs ref is 0 diffs by construction. The only independent check today is
 - `tb_tia_regs.sv`: generated from the model's port list (names and widths from #20); samples 1 ns after each posedge. First clk of every run is a reset.
 - Status: `tia_regs` RTL is not merged, so `--dut rtl` has only been checked against a throwaway stub written from the same table (plumbing only, not evidence). Run `python3 tests/random/run_tia_regs.py --dut rtl --seeds 200` once Zura's PR lands.
 - Open for #20: strobes are modelled as registered pulses (high in the cycle after the write edge); `TiaRegs.STROBES_REGISTERED` documents it.
+
+## TIA read side and playfield (chip-2600#30)
+- `ref/tia_rd.py`: `TiaCx` (15 latches, VBLANK D1-only gating, CXCLR beats set), `TiaInpt` (dump, I4/I5 latch), `read_mux` ($0-$F, `d_out`/`d_oe`), `TiaPf` (20-bit scan, copy/reflect). Packings are in the file header.
+- `run_tia_rd.py` + `tb_tia_rd.sv`: random per-clk object outputs, VBLANK/CXCLR/pin traffic, random reads (tia_rd gets independent random cx/inpt), random scan start/step with random PF/REF/right. `--dut ref|mutant:NAME|rtl`. 13 planted bugs, all caught. CXBLPF D6 is masked.
+- Status: RTL not merged yet; only the self-check has run (`logs/tia-rd-random.log`). Run `python3 tests/random/run_tia_rd.py --dut rtl --seeds 200` when #27/#28 land.
+- Model choices the RTL may differ on (will be filed as issues if so): `tia_inpt` output is the latch state after the edge (cleared by a 0 on the pin at that edge); latches reset to 1 on rst or D6=0; scan index beyond 19 and simultaneous step+start are not stimulated.
+- `ref` is a SystemVerilog keyword: #27's `tia_pf` port `ref` only compiles as Verilog-2005 (-g2005); the harness uses -g2005. If Ada renames it, the TB instance needs the new name.

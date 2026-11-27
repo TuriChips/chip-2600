@@ -1,0 +1,19 @@
+NOTE (2026-11-27): the RTL (tia_cx, tia_inpt, tia_rd, tia_pf; #27, #28) is not on main yet. The line below is the model against a second
+instance of itself (0 diffs by construction), NOT evidence about the chip. The mutant lines show the harness catches planted bugs.
+tb_tia_rd.sv was only syntax-checked against empty stubs. CXBLPF D6 (addr $6) is masked on d_out[0]/d_oe[0] (open spec point 6.1).
+Command: python3 tests/random/run_tia_rd.py --seeds 200 --clks 5000 [--dut mutant:NAME]  (seeds 1..200)
+dut=ref seeds=200 seed0=1 clks/seed=5000 total_clks=1000000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=247531 seeds_with_diffs=0 diffs=0
+--- self-check mutants (20 seeds x 3000 clks)
+dut=mutant:gate_on_d7 seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=26560
+dut=mutant:set_beats_clear seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=10 diffs=1117
+dut=mutant:ignore_en seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=14 diffs=17740
+dut=mutant:dump_d6 seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=28256
+dut=mutant:i5_no_latch seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=27128
+dut=mutant:inpt_drive_d6 seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=22578
+dut=mutant:inpt_off_by_one seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=11402
+dut=mutant:e_drives seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=3739
+dut=mutant:swap_m0p seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=1929
+dut=mutant:reflect_left seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=6565
+dut=mutant:pf0_order seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=8849
+dut=mutant:pf2_msb_first seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=1302
+dut=mutant:ref_no_right seeds=20 seed0=1 clks/seed=3000 total_clks=60000 cx_bits_ever_set=15/15 read_addrs=16/16 right_and_ref_clks=15428 seeds_with_diffs=20 diffs=6565
