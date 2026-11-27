@@ -1,3 +1,8 @@
+.toolchain/
 build/
+logs/2*/
+logs/nightly-*/
+logs/latest
+logs/tool-versions.txt
 __pycache__/
 *.pyc
