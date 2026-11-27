@@ -23,3 +23,5 @@ registered-strobe assumption are in the file header. The rest of the TIA model s
 
 `tia_mbgfx.py` (chip-2600#53): missile / ball graphics run, `step(rst, step, start, size, en)`: a run of 1/2/4/8 colour clocks
 (`size` 00..11), `start` wins over `step` and restarts, `gfx = drawing & en`. Harness: `tests/random/run_tia_mbgfx.py`.
+
+`tia_objpos.py` (chip-2600#63): one object position counter, `step(rst, step, res, nusiz)` -> `(q, start_main, start_copy)`. LFSR rule §4.1, wrap/ERR -> 0, copy decodes gated by the §6.5 NUSIZ table. Harness: `tests/random/run_tia_objpos.py`.
