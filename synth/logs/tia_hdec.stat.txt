@@ -1,0 +1,24 @@
+
+20. Printing statistics.
+
+=== tia_hdec ===
+
+   Number of wires:                 16
+   Number of wire bits:             21
+   Number of public wires:           9
+   Number of public wire bits:      14
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 15
+     sky130_fd_sc_hd__nand2_1        2
+     sky130_fd_sc_hd__nand2b_1       2
+     sky130_fd_sc_hd__nand4_1        1
+     sky130_fd_sc_hd__nand4b_1       1
+     sky130_fd_sc_hd__nand4bb_1      1
+     sky130_fd_sc_hd__nor2_1         3
+     sky130_fd_sc_hd__nor3_1         2
+     sky130_fd_sc_hd__nor4_1         3
+
+   Chip area for module '\tia_hdec': 86.332800
+

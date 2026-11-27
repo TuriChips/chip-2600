@@ -1,0 +1,21 @@
+Atari 2600 block synthesis, sky130_fd_sc_hd tt_025C_1v80, yosys 0.33, clock 100 ns, ideal wires. Toolchain v0.10.2 (Makefile pin); RTL = chip-2600 main d19bc6c.
+block          cells  flops  latch    area_um2  worst path: data arrival ns (slack)
+m6532           3330   1085      0 43047.536000  6.086 (slack 93.781 at 100 ns)
+tia_regs         660    166      0 5904.412800  3.816 (slack 96.060 at 100 ns)
+tia_hdec          15      0      0   86.332800  0.277 (slack 99.723 at 100 ns)
+tia_poly6         19      6      0  208.950400  0.663 (slack 99.250 at 100 ns)
+tia_objdec        11      0      0   56.304000  0.260 (slack 99.740 at 100 ns)
+
+full chip tia / a2600: not synthesised, RTL not on main yet.
+
+== warnings
+m6532: ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+m6532: Warnings: 26 unique messages, 234 total
+tia_hdec: ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+tia_hdec: Warnings: 26 unique messages, 234 total
+tia_objdec: ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+tia_objdec: Warnings: 26 unique messages, 234 total
+tia_poly6: ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+tia_poly6: Warnings: 26 unique messages, 234 total
+tia_regs: ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
+tia_regs: Warnings: 26 unique messages, 234 total
