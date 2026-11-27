@@ -1,0 +1,22 @@
+
+20. Printing statistics.
+
+=== tia_objdec ===
+
+   Number of wires:                 12
+   Number of wire bits:             17
+   Number of public wires:           6
+   Number of public wire bits:      11
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 11
+     sky130_fd_sc_hd__nand2_1        2
+     sky130_fd_sc_hd__nand2b_1       2
+     sky130_fd_sc_hd__nand4_1        1
+     sky130_fd_sc_hd__nand4b_1       1
+     sky130_fd_sc_hd__nor2_1         3
+     sky130_fd_sc_hd__nor3_1         2
+
+   Chip area for module '\tia_objdec': 56.304000
+
