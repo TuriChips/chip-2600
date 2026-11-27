@@ -22,13 +22,13 @@
  Yosys 0.33 (git sha1 2584903a060)
 
 
--- Running command `read_liberty -lib /tmp/tmp.86m4OKbvlm/f.lib; read_verilog -I rtl/control rtl/control/tia_cx.v;
+-- Running command `read_liberty -lib /tmp/tmp.AcN4fc5X9e/f.lib; read_verilog -I rtl/control rtl/control/tia_cx.v;
    hierarchy -check -top tia_cx; proc; flatten; opt; wreduce; alumacc; opt; memory -nomap -nordff; memory_map; opt -full; techmap; opt -fast;
    dfflegalize -cell $_DFF_P_ 01 -cell $_DLATCH_P_ x;
-   dfflibmap -liberty /tmp/tmp.86m4OKbvlm/f.lib; abc -D 100000 -liberty /tmp/tmp.86m4OKbvlm/f.lib; opt_clean -purge; check -assert;
-   tee -o synth/logs/tia_cx.stat.txt stat -liberty /tmp/tmp.86m4OKbvlm/f.lib; write_verilog -noattr -noexpr /tmp/tmp.86m4OKbvlm/tia_cx.v' --
+   dfflibmap -liberty /tmp/tmp.AcN4fc5X9e/f.lib; abc -D 100000 -liberty /tmp/tmp.AcN4fc5X9e/f.lib; opt_clean -purge; check -assert;
+   tee -o synth/logs/tia_cx.stat.txt stat -liberty /tmp/tmp.AcN4fc5X9e/f.lib; write_verilog -noattr -noexpr /tmp/tmp.AcN4fc5X9e/tia_cx.v' --
 
-1. Executing Liberty frontend: /tmp/tmp.86m4OKbvlm/f.lib
+1. Executing Liberty frontend: /tmp/tmp.AcN4fc5X9e/f.lib
 Imported 364 cell types from liberty file.
 
 2. Executing Verilog-2005 frontend: rtl/control/tia_cx.v
@@ -585,7 +585,7 @@ Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script
 ABC: ABC command line: "source <abc-temp-dir>/abc.script".
 ABC: 
 ABC: + read_blif <abc-temp-dir>/input.blif 
-ABC: + read_lib -w /tmp/tmp.86m4OKbvlm/f.lib 
+ABC: + read_lib -w /tmp/tmp.AcN4fc5X9e/f.lib 
 ABC: Parsing finished successfully.  Parsing time =     0.08 sec
 ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
 ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
@@ -661,7 +661,7 @@ ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2
 ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
 ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
 ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
-ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/tmp/tmp.86m4OKbvlm/f.lib" has 290 cells (74 skipped: 62 seq; 0 tri-state; 12 no func; 0 dont_use).  Time =     0.12 sec
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/tmp/tmp.AcN4fc5X9e/f.lib" has 290 cells (74 skipped: 62 seq; 0 tri-state; 12 no func; 0 dont_use).  Time =     0.12 sec
 ABC: Memory =   18.57 MB. Time =     0.12 sec
 ABC: Warning: Detected 9 multi-output gates (for example, "sky130_fd_sc_hd__fa_1").
 ABC: + strash 
@@ -721,6 +721,6 @@ Found and reported 0 problems.
 Dumping module `\tia_cx'.
 
 Warnings: 26 unique messages, 234 total
-End of script. Logfile hash: 7c017131d4, CPU: user 0.53s system 0.02s, MEM: 36.66 MB peak
+End of script. Logfile hash: 855469313d, CPU: user 0.54s system 0.02s, MEM: 36.50 MB peak
 Yosys 0.33 (git sha1 2584903a060)
-Time spent: 27% 1x abc (0 sec), 20% 2x read_liberty (0 sec), ...
+Time spent: 28% 1x abc (0 sec), 20% 2x read_liberty (0 sec), ...
