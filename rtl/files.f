@@ -4,3 +4,4 @@
 # The 6507 core (rtl/cpu/, chip-2600#2) joins when it is merged, for TOP=a2600.
 rtl/datapath/m6532.v
 rtl/datapath/tia_pgfx.v
+rtl/datapath/tia_mbgfx.v
