@@ -1,0 +1,27 @@
+Kernel line paths: from the instruction after each STA WSYNC to the next STA WSYNC (inclusive), worst-case page crossings assumed.
+Limit: 76 cycles per line (228 colour clocks / 3). "write cycle" = cycle count at the end of the STA.
+
+Start F081 (kspr):
+  path 11 instrs, 39 cycles (WSYNC), margin 37
+Start F099 (-):
+  path 3 instrs,  6 cycles (exit), margin -
+  path 18 instrs, 60 cycles (WSYNC), margin 16
+  path 12 instrs, 42 cycles (WSYNC), margin 34
+
+deadline sta $01            write cycle max 12 <= 22: ok
+deadline sta $01            write cycle max  8 <= 22: ok
+deadline sta $1B            write cycle max 16 <= 36: ok
+deadline sta $1C            write cycle max 24 <= 36: ok
+deadline sta $1F            write cycle max 32 <= 36: ok
+
+Kernel worst case: 60 cycles of 76 (every path ends in STA WSYNC at or before that cycle).
+Kernel exit (last sprite line -> overscan): [6] cycles from line start to kernel_end.
+
+Timer windows (RIOT TIM64T, 64 cycles per count; the poll loop adds <= 6):
+  VBLANK (37 lines): TIM64T=43 written at cycle 9; expires 2761..2767; must fall in line 37 = 2736..2811: ok
+  overscan (30 lines): TIM64T=35 written at cycle 17; expires 2257..2263; must fall in line 30 = 2204..2279: ok
+
+Frame: 3 + 37 + 192 + 30 = 262 lines; kernel = 24 bands x (1 setup + 7 sprite) = 192 lines.
+Image: 4096 bytes at $F000, sha256 25de12b530865ab97877de2ac008f21afb942ccb4f97765c951f715fe18f96e0
+Code ends at $F0FF (tables from $F200).
+RESULT: PASS
