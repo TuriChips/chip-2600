@@ -103,7 +103,7 @@ Run: `tests/tia/run_tia.sh` (Icarus; runs `cx` and `pf` after `poly` and `regs`)
 | §6.4 | `step` = 0 holds the index; `start` restarts at bit 0 mid-scan; `rst` gives index 0 | `tb_pf` T4 ("hold", "restart", "rst") | written |
 | §6.4 | A write shows from the next index (PF1 and PF2 changed mid-scan) | `tb_pf` T4 ("written … index") | written |
 
-Not covered: CXBLPF D6 and its `d_oe[0]` (§6.1 [check: LD s2 C6]); the colour clock from which a mid-line PF write is visible, and the RHB/CNT-to-first-bit delay (§6.4 [check], turichips#48); the index after bit 19 without a `start`; `rst` in `tia_inpt` (latch state after reset: spec silent); `tia_rd` `d_out` where `d_oe` = 0; SCORE and PFP (§6.9, priority mux).
+Not covered: CXBLPF D6 and its `d_oe[0]` (§6.1 [check: LD s2 C6]); the colour clock from which a mid-line PF write is visible, and the RHB/CNT-to-first-bit delay (§6.4 [check], turichips#48); the index after bit 19 without a `start`; `rst` in `tia_inpt` (latch state after reset: spec silent); `tia_rd` `d_out` where `d_oe` = 0; SCORE and PFP in `tia_cx`/`tia_inpt` terms (see the tia_prio section for the priority mux).
 
 ## TIA player graphics scanner (`tb/tia/tb_pgfx.sv`, spec §6.5 Players and Vertical delay, chip-2600#38)
 Run: `tests/tia/run_tia.sh` (runs `pgfx` once `rtl/datapath/tia_pgfx.v` exists; prints SKIPPED until then). Self-check: `tests/tia/selfcheck/run.sh`, log `logs/tia-tb-selfcheck.log`: the bench passes on the scratch model `pgfx.v` (with `regs.v`) and fails all 28 pgfx mutants. **Not yet run on the RTL**: `tia_pgfx` is #37, not merged. **Port names are assumed** (#37 gives behaviour only): `clk rst step start grp_new[7:0] grp_old[7:0] vdel refp nusiz[2:0] pgfx`, as in Beru's #43 harness. Convention: after the clk edge with `start` the output shows bit 0; a bit lasts 1/2/4 edges with `step`; the step after bit 7 gives 0.
@@ -119,3 +119,16 @@ Run: `tests/tia/run_tia.sh` (runs `pgfx` once `rtl/datapath/tia_pgfx.v` exists; 
 | §6.5 | NUSIZ D2-D0 (not D5-D4) and REFP D3 (not other bits) reach the player through `tia_regs` | `tb_pgfx` T5 "e2e" | written |
 
 Not covered: when a copy starts (position counter, [check] turichips#48), the stretched-mode +1 start delay, `start` and `step` on the same edge, mid-scan changes of GRP/VDEL/REFP/NUSIZ, copies (§6.5 NUSIZ decode, a later block), missiles, RESMP.
+
+## TIA priority and colour (`tb/tia/tb_prio.sv`, spec §6.9, §6.4 SCORE/PFP, §6.2 blk, chip-2600#62)
+Run: `tests/tia/run_tia.sh` (runs `prio` once `rtl/control/tia_prio.v` exists; prints SKIPPED until then). Self-check: `tests/tia/selfcheck/run.sh`, log `logs/tia-tb-selfcheck.log`: the bench passes on the scratch model `prio.v` and fails all 19 prio mutants. **Not yet run on the RTL**: `tia_prio` is #61, not merged. Port names from #61: `p0 m0 p1 m1 pf bl score pfp right blk colup0 colup1 colupf colubk lum col`. Expected colours come from the §6.9 priority lists, written as a separate if-chain in the bench. Two register sets (A, B) with distinct colour and luminance per register.
+
+| Spec | Behaviour | Test | Status |
+|------|-----------|------|--------|
+| §6.9 | All 64 combinations of the six object bits with PFP = 0 and PFP = 1: P0/M0 > P1/M1 > PF/BL > BK, and with PFP PF/BL > P0/M0 > P1/M1 > BK (also with SCORE = 1 and `right` 0/1 where the case is not open) | `tb_prio` T9 "A/B objs=…" | written |
+| §6.4 | SCORE = 1, PFP = 0, PF = 1, BL = 0: PF takes COLUP0 left (`right` = 0), COLUP1 right; players and missiles still win over PF; SCORE = 1 with no PF/BL changes nothing | `tb_prio` T9 "A/B objs=… score=1" | written |
+| §6.9 | Each object selects its own register (P0, M0 → COLUP0; P1, M1 → COLUP1; PF, BL → COLUPF; none → COLUBK) | `tb_prio` T9 "P0 alone" … "none" | written |
+| §6.2 | `blk` = 1 gives `lum` = 0 and `col` = 0 for all 64 object combinations × PFP × SCORE × `right`, with BK all ones; releases combinationally | `tb_prio` T9 "blk …" | written |
+| §6.9 | `lum` = D3–D1 and `col` = D7–D4 (distinct registers; every single bit of COLUBK) | `tb_prio` T9 "BK bit n", "A/B" | written |
+
+Not asserted (open, §6.9 [check], turichips#48): SCORE = 1 with BL = 1, and SCORE = 1 with PFP = 1 when PF or BL is set. The bench prints one `REPORT open objs=… : shows <register>` line per such input (register set A, 160 lines) and asserts nothing on them. Not covered: the `right` derivation from CNT (caller's job), mid-line register writes.

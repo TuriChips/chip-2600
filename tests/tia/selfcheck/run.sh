@@ -9,6 +9,7 @@ echo "unmutated cx model: $(one cx $D/cx.v)" | tee -a $L
 echo "unmutated pf model: $(one pf $D/pf.v)" | tee -a $L
 echo "unmutated regs model: $(one regs $D/regs.v)" | tee -a $L
 echo "unmutated mbgfx model: $(one mbgfx $D/mbgfx.v)" | tee -a $L
+echo "unmutated prio model: $(one prio $D/prio.v)" | tee -a $L
 echo "unmutated pgfx model: $(one pgfx "$D/pgfx.v $D/regs.v")" | tee -a $L
 mut() { n=$1; t=$2; f=$3; sed "$4" $D/$f > $M/$f; cmp -s $D/$f $M/$f && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
   r=$(one $t $M/$f); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
@@ -95,4 +96,26 @@ mutm "mbgfx 8-wide loses first clock" 's/assign gfx = act \& en/assign gfx = act
 mutm "mbgfx rst ignored" 's/if (rst) begin act<=0; n<=0; end/if (rst) begin n<=0; end/'
 mutm "mbgfx width latched at start" "s/wire \[3:0\] w = 4'd1 << size;/reg [3:0] w; always @(posedge clk) if (start) w <= 4'd1<<size;/"
 mutm "mbgfx en latched at start" 's/assign gfx = act \& en/reg el; always @(posedge clk) if (start) el<=en; assign gfx = act \& el/'
+mutq() { n=$1; sed "$2" $D/prio.v > $M/prio.v; cmp -s $D/prio.v $M/prio.v && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
+  r=$(one prio $M/prio.v); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
+mutq "prio P1 above P0" 's/o0 ? colup0 : o1 ? colup1 : ob ? pfc : colubk/o1 ? colup1 : o0 ? colup0 : ob ? pfc : colubk/'
+mutq "prio PF above players when PFP = 0" 's/: (o0 ? colup0 : o1 ? colup1 : ob ? pfc : colubk)/: (ob ? pfc : o0 ? colup0 : o1 ? colup1 : colubk)/'
+mutq "prio PFP ignored" 's/wire \[6:0\] c = pfp ?/wire [6:0] c = 1\x27b0 ?/'
+mutq "prio PFP: P1 above P0" 's/ob ? pfc : o0 ? colup0 : o1 ? colup1 : colubk)/ob ? pfc : o1 ? colup1 : o0 ? colup0 : colubk)/'
+mutq "prio PFP: PF above only BL (ball stays below players)" 's/(ob ? pfc : o0 ? colup0/(pf ? pfc : o0 ? colup0/'
+mutq "prio missile colour from COLUP1 (M0)" 's/o0 = p0|m0/o0 = p0/; s/o1 = p1|m1/o1 = p1|m1|m0/'
+mutq "prio M1 uses COLUP0" 's/o0 = p0|m0, o1 = p1|m1/o0 = p0|m0|m1, o1 = p1/'
+mutq "prio BL ignored" 's/ob = pf|bl/ob = pf/'
+mutq "prio PF ignored" 's/ob = pf|bl/ob = bl/'
+mutq "prio SCORE ignored" 's/(score \&\& !pfp/(1\x27b0 \&\& !pfp/'
+mutq "prio SCORE halves swapped" 's/right ? colup1 : colup0/right ? colup0 : colup1/'
+mutq "prio SCORE takes COLUP0 on both halves" 's/right ? colup1 : colup0/colup0/'
+# Not mutants: SCORE with BL = 1 or with PFP = 1 are the open [check] cases, deliberately unasserted, so changes there are invisible to the bench.
+mutq "prio blk ignored" 's/assign {col, lum} = blk ? 7\x27d0 : c/assign {col, lum} = c/'
+mutq "prio blk zeroes lum only" 's/blk ? 7\x27d0 : c/blk ? {c[6:3],3\x27d0} : c/'
+mutq "prio blk zeroes col only" 's/blk ? 7\x27d0 : c/blk ? {4\x27d0,c[2:0]} : c/'
+mutq "prio blk shows BK instead of 0" 's/blk ? 7\x27d0 : c/blk ? colubk : c/'
+mutq "prio lum and col swapped" 's/assign {col, lum} = /assign {lum, col} = /'
+mutq "prio lum from D4-D2" 's/assign {col, lum} = blk ? 7\x27d0 : c;/assign {col, lum} = blk ? 7\x27d0 : {c[6:3], c[3:1]};/'
+mutq "prio BK colour from COLUPF" 's/ob ? pfc : colubk)/ob ? pfc : colupf)/'
 rm -rf $M; exit $rc
