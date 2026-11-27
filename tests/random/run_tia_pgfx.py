@@ -7,8 +7,8 @@ random register writes (GRP0/GRP1 write order and the vertical-delay copy theref
 VDELPx/REFPx/NUSIZx are written randomly too. Config writes (NUSIZ, REFP, VDELP, GRP) land only while that
 player is idle unless --live (the live-read semantics are a model choice, see ref/tia_pgfx.py).
 Stimulus line (hex): rst step0 start0 step1 start1 | per player: grp_new grp_old vdel refp nusiz
-RTL ports assumed (Ada's tia_pgfx not merged when this was written): clk rst step start grp_new[7:0]
-grp_old[7:0] vdel refp nusiz[2:0] -> pgfx. Adjust tb_tia_pgfx.sv to the real header.
+RTL ports (rtl/datapath/tia_pgfx.v): clk rst step start grp_new[7:0] grp_old[7:0] vdel refl nusiz[2:0] -> gfx
+(stimulus column refp maps to port refl).
 """
 import argparse, os, random, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -63,6 +63,8 @@ def gen_stim(rng, n, live):
         for p in (0, 1):
             s += [int(rng.random() < sp_p), int(rng.random() < st_p)]
             cfg.append((o["grp%d_new" % p], o["grp%d_old" % p], o["vdelp%d" % p], o["refp%d" % p], o["nusiz%d" % p] & 7))
+        for p in (0, 1):
+            pl[p].step(s[0], s[1 + 2 * p], s[2 + 2 * p], *cfg[p])
         stim.append((s, cfg))
     return stim
 
