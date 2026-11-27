@@ -1,4 +1,6 @@
 unmutated poly model: PASS (1032 checks)
+unmutated cx model: PASS (657 checks)
+unmutated pf model: PASS (5778 checks)
 unmutated regs model: PASS (116947 checks)
 mutant GRP0 write also copies ENABL new to old: FAIL: 389 of 116947 checks
 mutant GRP1 write forgets GRP0 old: FAIL: 3019 of 116947 checks
@@ -13,3 +15,29 @@ mutant poly rst loses to step: FAIL: 167 of 1021 checks
 mutant poly ignores step=0: FAIL: 14 of 1032 checks
 mutant hdec LRHB wrong state: FAIL: 4 of 1032 checks
 mutant objdec c7 wrong: FAIL: 4 of 1032 checks
+mutant cx ignores VBLANK D1: FAIL: 17 of 658 checks
+mutant cx set on en=0: FAIL: 2 of 658 checks
+mutant cx set wins over CXCLR: FAIL: 4 of 658 checks
+mutant cx pair M1.P0 and M1.P1 swapped: FAIL: 9 of 658 checks
+mutant cx P1.BL wired as P1.PF: FAIL: 9 of 658 checks
+mutant cx CXCLR does not clear M0.M1: FAIL: 92 of 658 checks
+mutant inpt I3 not forced by D7: FAIL: 4 of 657 checks
+mutant inpt I4 forced by D7: FAIL: 2 of 657 checks
+mutant inpt latch not reset by D6=0: FAIL: 8 of 657 checks
+mutant inpt latch transparent (no hold): FAIL: 10 of 657 checks
+mutant inpt latch shared between I4 and I5: FAIL: 3 of 657 checks
+mutant rd CXBLPF not driven on D7: FAIL: 17 of 657 checks
+mutant rd INPT also drives D6: FAIL: 12 of 657 checks
+mutant rd $E drives: FAIL: 2 of 657 checks
+mutant rd CXM1FB D6 reads CXM0FB D6: FAIL: 2 of 657 checks
+mutant rd INPT3 reads INPT2: FAIL: 4 of 657 checks
+mutant pf PF0 bit order reversed: FAIL: 465 of 5778 checks
+mutant pf PF1 bit order not reversed: FAIL: 896 of 5778 checks
+mutant pf PF2 bit order reversed: FAIL: 941 of 5778 checks
+mutant pf reflect ignored: FAIL: 610 of 5778 checks
+mutant pf reflect on the left half: FAIL: 460 of 5778 checks
+mutant pf reflect on mirror of bits (18-i): FAIL: 677 of 5778 checks
+mutant pf start ignored: FAIL: 2033 of 5778 checks
+mutant pf rst ignored: FAIL: 1 of 5778 checks
+mutant pf advances without step: FAIL: 1 of 5778 checks
+mutant pf advances every 2 steps: FAIL: 1906 of 5778 checks
