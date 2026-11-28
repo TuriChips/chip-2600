@@ -132,3 +132,18 @@ Run: `tests/tia/run_tia.sh` (runs `prio` once `rtl/control/tia_prio.v` exists; p
 | §6.9 | `lum` = D3–D1 and `col` = D7–D4 (distinct registers; every single bit of COLUBK) | `tb_prio` T9 "BK bit n", "A/B" | written |
 
 Not asserted (open, §6.9 [check], turichips#48): SCORE = 1 with BL = 1, and SCORE = 1 with PFP = 1 when PF or BL is set. The bench prints one `REPORT open objs=… : shows <register>` line per such input (register set A, 160 lines) and asserts nothing on them. Not covered: the `right` derivation from CNT (caller's job), mid-line register writes.
+
+## TIA object position counter (`tb/tia/tb_objpos.sv`, spec §4.1, §6.5, chip-2600#72)
+Run: `tests/tia/run_tia.sh` (case `objpos`, log `logs/tia-tb-rtl.log`: PASS, 1369 checks on `rtl/datapath/tia_objpos.v`). Self-check: `tests/tia/selfcheck/run.sh`, log `logs/tia-tb-selfcheck.log`: passes on the scratch model `objpos.v`, fails all 24 objpos mutants. The §4.1 sequence is generated in the bench from the XNOR(Q5, Q6) rule; the decode states and the NUSIZ → copy table are written in the bench from §6.5 (offset 4·(count+1) colour clocks), not read from the RTL. ERR (111111) cannot be reached by stepping, so the bench deposits it into `dut.u_cnt.q` (renaming `u_cnt` breaks it, as for Beru's `tb_tia_objpos`).
+
+| Spec | Behaviour | Test | Status |
+|------|-----------|------|--------|
+| §4.1 | Counter follows new Q1 = XNOR(Q5, Q6), Qk = old Q(k-1), over 3 periods, all 8 NUSIZ codes | `tb_objpos` A "seq …" | written |
+| §6.5 | Period 40: from 000000, 40 steps return to 000000 (not earlier); wrap state 101101 (count 39) gives `start_main` for exactly that state | A, B "period 40" | written |
+| §6.5 | `start_copy` for each NUSIZ code at every count 0..39 (so 3, 7, 15 and no other): 001 +16, 010 +32, 011 +16/+32, 100 +64, 110 +32/+64, 000/101/111 none; decode states 111000, 101111, 111001 by label | A, matrix-row checks | written |
+| §6.5 | ERR 111111 → 000000 on the next `step`; no `start_main`/`start_copy` in ERR; `step` = 0 holds ERR; `res`, `rst` clear it | F "ERR …" | written |
+| §6.5 | `step` = 0 holds the state in all 40 states | C "hold …" | written |
+| §6.5 | `res` clears to 000000 that clock, from all 40 states, wins over `step`; counting resumes from 000000 | D "res …" | written |
+| §6.5 | `rst` clears from all 40 states, with and without `step`/`res` | E "rst …" | written |
+
+Not covered (spec §10 [check], turichips#48): +4/+5 landing delays, stretched-mode +1, "one count later" start, HMOVE, RESMP. The NUSIZ → copy-enable mapping is from SPG p.39/Towers until LD s3 is read; if that changes, `copy_at` in the bench changes with it. Known, not mine to fix here: the `pgfx` self-check lines in `logs/tia-tb-selfcheck.log` are empty (the scratch `pgfx.v` has port names `refl`/`gfx` that no longer match the bench), unchanged from main.

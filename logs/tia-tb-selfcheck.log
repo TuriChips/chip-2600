@@ -4,6 +4,7 @@ unmutated pf model: PASS (5778 checks)
 unmutated regs model: PASS (116947 checks)
 unmutated mbgfx model: PASS (414 checks)
 unmutated prio model: PASS: 1753 checks
+unmutated objpos model: PASS tb_objpos (1369 checks)
 tb/tia/tb_pgfx.sv:15: error: port ``refl'' is not a port of dut.
 tb/tia/tb_pgfx.sv:15: error: port ``gfx'' is not a port of dut.
 tb/tia/tb_pgfx.sv:27: error: port ``refl'' is not a port of p0.
@@ -303,3 +304,27 @@ mutant prio blk shows BK instead of 0: FAIL: 1027 of 1753 checks
 mutant prio lum and col swapped: FAIL: 725 of 1753 checks
 mutant prio lum from D4-D2: FAIL: 719 of 1753 checks
 mutant prio BK colour from COLUPF: FAIL: 23 of 1753 checks
+mutant objpos feedback XOR: FAIL: 1144 of 1369 checks
+mutant objpos feedback taps Q4,Q6: FAIL: 1039 of 1369 checks
+mutant objpos wrap does not clear: FAIL: 649 of 1369 checks
+mutant objpos ERR does not clear: FAIL: 16 of 1369 checks
+mutant objpos wrap at 38: FAIL: 661 of 1369 checks
+mutant objpos ERR clears without step: FAIL: 24 of 1369 checks
+mutant objpos res ignored: FAIL: 118 of 1369 checks
+mutant objpos rst ignored: FAIL: 1175 of 1369 checks
+mutant objpos step ignored: FAIL: 120 of 1369 checks
+mutant objpos start_main off: FAIL: 28 of 1369 checks
+mutant objpos start_main on c3: FAIL: 28 of 1369 checks
+mutant objpos c3 decode wrong: FAIL: 16 of 1369 checks
+mutant objpos c7 decode wrong: FAIL: 19 of 1369 checks
+mutant objpos c15 decode wrong: FAIL: 13 of 1369 checks
+mutant objpos 001 copy missing: FAIL: 3 of 1369 checks
+mutant objpos 010 enables +16: FAIL: 3 of 1369 checks
+mutant objpos 011 lacks +32: FAIL: 4 of 1369 checks
+mutant objpos 100 lacks +64: FAIL: 3 of 1369 checks
+mutant objpos 110 lacks +64: FAIL: 4 of 1369 checks
+mutant objpos 110 lacks +32: FAIL: 3 of 1369 checks
+mutant objpos 101 copies (+16): FAIL: 3 of 1369 checks
+mutant objpos 111 copies (+64): FAIL: 6 of 1369 checks
+mutant objpos 000 copies (+32): FAIL: 3 of 1369 checks
+mutant objpos ERR has start_copy: FAIL: 2 of 1369 checks

@@ -10,6 +10,7 @@ echo "unmutated pf model: $(one pf $D/pf.v)" | tee -a $L
 echo "unmutated regs model: $(one regs $D/regs.v)" | tee -a $L
 echo "unmutated mbgfx model: $(one mbgfx $D/mbgfx.v)" | tee -a $L
 echo "unmutated prio model: $(one prio $D/prio.v)" | tee -a $L
+echo "unmutated objpos model: $(one objpos $D/objpos.v)" | tee -a $L
 echo "unmutated pgfx model: $(one pgfx "$D/pgfx.v $D/regs.v")" | tee -a $L
 mut() { n=$1; t=$2; f=$3; sed "$4" $D/$f > $M/$f; cmp -s $D/$f $M/$f && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
   r=$(one $t $M/$f); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
@@ -118,4 +119,30 @@ mutq "prio blk shows BK instead of 0" 's/blk ? 7\x27d0 : c/blk ? colubk : c/'
 mutq "prio lum and col swapped" 's/assign {col, lum} = /assign {lum, col} = /'
 mutq "prio lum from D4-D2" 's/assign {col, lum} = blk ? 7\x27d0 : c;/assign {col, lum} = blk ? 7\x27d0 : {c[6:3], c[3:1]};/'
 mutq "prio BK colour from COLUPF" 's/ob ? pfc : colubk)/ob ? pfc : colupf)/'
+mutz() { n=$1; sed "$2" $D/objpos.v > $M/objpos.v; cmp -s $D/objpos.v $M/objpos.v && { echo "mutant $n: SED NO-OP" | tee -a $L; rc=1; return; }
+  r=$(one objpos $M/objpos.v); echo "mutant $n: $r" | tee -a $L; case "$r" in FAIL:*) ;; *) rc=1;; esac; }
+mutz "objpos feedback XOR" 's/~(q\[4\]^q\[5\])/(q[4]^q[5])/'
+mutz "objpos feedback taps Q4,Q6" 's/~(q\[4\]^q\[5\])/~(q[3]^q[5])/'
+mutz "objpos wrap does not clear" 's/(step&(w|e))/(step\&e)/'
+mutz "objpos ERR does not clear" 's/(step&(w|e))/(step\&w)/'
+mutz "objpos wrap at 38" "s/w = r==6'b101101/w = r==6'b100110/"
+mutz "objpos ERR clears without step" 's/(step&(w|e))/((step\&w)|e)/'
+mutz "objpos res ignored" 's/rst|res|/rst|/;'
+mutz "objpos rst ignored" 's/clr(rst|res|/clr(res|/'
+mutz "objpos step ignored" 's/else if (step) q/else q/'
+mutz "objpos start_main off" 's/assign start_main = w/assign start_main = 1\x27b0/'
+mutz "objpos start_main on c3" 's/assign start_main = w/assign start_main = w|a3/'
+mutz "objpos c3 decode wrong" "s/a3 = r==6'b111000/a3 = r==6'b111100/"
+mutz "objpos c7 decode wrong" "s/a7 = r==6'b101111/a7 = r==6'b101110/"
+mutz "objpos c15 decode wrong" "s/a15 = r==6'b111001/a15 = r==6'b111011/"
+mutz "objpos 001 copy missing" 's/(nusiz==1|nusiz==3)/(nusiz==3)/'
+mutz "objpos 010 enables +16" 's/(nusiz==1|nusiz==3)/(nusiz==1|nusiz==2|nusiz==3)/'
+mutz "objpos 011 lacks +32" 's/(nusiz==2|nusiz==3|nusiz==6)/(nusiz==2|nusiz==6)/'
+mutz "objpos 100 lacks +64" 's/(nusiz==4|nusiz==6)/(nusiz==6)/'
+mutz "objpos 110 lacks +64" 's/(nusiz==4|nusiz==6)/(nusiz==4)/'
+mutz "objpos 110 lacks +32" 's/(nusiz==2|nusiz==3|nusiz==6)/(nusiz==2|nusiz==3)/'
+mutz "objpos 101 copies (+16)" 's/(nusiz==1|nusiz==3)/(nusiz==1|nusiz==3|nusiz==5)/'
+mutz "objpos 111 copies (+64)" 's/(nusiz==4|nusiz==6)/(nusiz==4|nusiz==6|nusiz==7)/'
+mutz "objpos 000 copies (+32)" 's/(nusiz==2|nusiz==3|nusiz==6)/(nusiz==0|nusiz==2|nusiz==3|nusiz==6)/'
+mutz "objpos ERR has start_copy" 's/assign start_copy = /assign start_copy = (e\&nusiz==3) | /'
 rm -rf $M; exit $rc
