@@ -25,3 +25,5 @@ registered-strobe assumption are in the file header. The rest of the TIA model s
 (`size` 00..11), `start` wins over `step` and restarts, `gfx = drawing & en`. Harness: `tests/random/run_tia_mbgfx.py`.
 
 `tia_objpos.py` (chip-2600#63): one object position counter, `step(rst, step, res, nusiz)` -> `(q, start_main, start_copy)`. LFSR rule §4.1, wrap/ERR -> 0, copy decodes gated by the §6.5 NUSIZ table. Harness: `tests/random/run_tia_objpos.py`.
+
+`tia_prio.py` (chip-2600#73): `prio(p0,m0,p1,m1,pf,bl,score,pfp,right,blk,colup0,colup1,colupf,colubk)` -> `(lum, col)`, from §6.9, §6.4, §6.2. `unsettled(score,pfp,bl)` marks SCORE=1 with BL=1 or PFP=1 (§6.9 [check], turichips#48): no colour is claimed there. Harness: `tests/random/run_tia_prio.py`.

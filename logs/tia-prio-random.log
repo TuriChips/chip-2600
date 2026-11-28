@@ -1,0 +1,64 @@
+# tia_prio random harness: model self-check, mutants, RTL (chip-2600#73). SCORE=1 with BL=1 or PFP=1 excluded (turichips#48).
+$ run_tia_prio.py --seeds 200 --dut ref
+dut=ref seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=0 diffs=0
+exit=0
+$ run_tia_prio.py --seeds 200 --dut mutant:pfp_ignored
+dut=mutant:pfp_ignored seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=142394, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=131662
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:pfp_inverted
+dut=mutant:pfp_inverted seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=227382, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=325992
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:p1_above_p0
+dut=mutant:p1_above_p0 seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=41666, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=163785
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:pf_above_p1
+dut=mutant:pf_above_p1 seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=26139, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=40759
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:bk_above_pf
+dut=mutant:bk_above_pf seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=10683, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=199 diffs=20849
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:m0_not_p0
+dut=mutant:m0_not_p0 seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=40154, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=104220
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:m1_not_p1
+dut=mutant:m1_not_p1 seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=16622, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=198 diffs=32812
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:bl_not_pf
+dut=mutant:bl_not_pf seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=64879, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=57370
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:score_ignored
+dut=mutant:score_ignored seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=180 diffs=6220
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:score_swapped_halves
+dut=mutant:score_swapped_halves seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=181 diffs=6202
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:score_always_colup0
+dut=mutant:score_always_colup0 seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=171 diffs=3090
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:score_on_bl_pf_normal
+dut=mutant:score_on_bl_pf_normal seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=5120, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=0 diffs=0
+exit=0
+$ run_tia_prio.py --seeds 200 --dut mutant:blk_ignored
+dut=mutant:blk_ignored seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=12204, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=134 diffs=20719
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:blk_lum_only
+dut=mutant:blk_lum_only seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=11602, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=134 diffs=19687
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:blk_col_only
+dut=mutant:blk_col_only seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=10949, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=134 diffs=18413
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:lum_col_swapped_bits
+dut=mutant:lum_col_swapped_bits seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=208945, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=368203
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:bk_uses_colupf
+dut=mutant:bk_uses_colupf seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=7901, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=200 diffs=21885
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:score_when_pf_off
+dut=mutant:score_when_pf_off seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=194 diffs=6881
+exit=1
+$ run_tia_prio.py --seeds 200 --dut mutant:score_beats_player
+dut=mutant:score_beats_player seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=199 diffs=26898
+exit=1
+$ run_tia_prio.py --seeds 200 --dut rtl
+dut=rtl seeds=200 seed0=1 vecs/seed=5000 total_vecs=1000000 compared=638086 unsettled_excluded=361914 (SCORE=1 with BL=1 or PFP=1; of these placeholder-vs-DUT differences=0, not counted) score_vecs=503612 pfp_vecs=505764 blk_vecs=36883 seeds_with_diffs=0 diffs=0
+exit=0
