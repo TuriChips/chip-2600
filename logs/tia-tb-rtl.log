@@ -1,0 +1,178 @@
+PASS (1032 checks)
+poly: PASS (1032 checks)
+PASS (116947 checks)
+regs: PASS (116947 checks)
+PASS (657 checks)
+cx: PASS (657 checks)
+PASS (5778 checks)
+pf: PASS (5778 checks)
+PASS (8824 checks)
+pgfx: PASS (8824 checks)
+PASS (414 checks)
+mbgfx: PASS (414 checks)
+REPORT open objs=000001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUPF
+REPORT open objs=000011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUPF
+REPORT open objs=000101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP1
+REPORT open objs=000111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP1
+REPORT open objs=001001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP1
+REPORT open objs=001011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP1
+REPORT open objs=001101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP1
+REPORT open objs=001111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP1
+REPORT open objs=010001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=010011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=010101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=010111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=011001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=011011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=011101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=011111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=100001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=100011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=100101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=100111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=101001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=101011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=101101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=101111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=110001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=110011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=110101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=110111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=111001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=111011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=111101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=111111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=0: shows COLUP0
+REPORT open objs=000001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUPF
+REPORT open objs=000011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUPF
+REPORT open objs=000101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP1
+REPORT open objs=000111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP1
+REPORT open objs=001001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP1
+REPORT open objs=001011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP1
+REPORT open objs=001101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP1
+REPORT open objs=001111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP1
+REPORT open objs=010001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=010011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=010101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=010111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=011001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=011011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=011101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=011111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=100001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=100011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=100101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=100111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=101001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=101011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=101101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=101111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=110001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=110011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=110101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=110111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=111001(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=111011(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=111101(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=111111(p0 m0 p1 m1 pf bl) score=1 pfp=0 right=1: shows COLUP0
+REPORT open objs=000001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=000010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=000011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=000101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=000110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=000111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=001001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=001010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=001011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=001101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=001110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=001111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=010001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=010010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=010011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=010101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=010110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=010111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=011001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=011010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=011011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=011101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=011110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=011111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=100001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=100010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=100011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=100101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=100110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=100111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=101001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=101010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=101011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=101101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=101110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=101111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=110001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=110010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=110011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=110101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=110110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=110111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=111001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=111010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=111011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=111101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=111110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=111111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=0: shows COLUPF
+REPORT open objs=000001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=000010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=000011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=000101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=000110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=000111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=001001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=001010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=001011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=001101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=001110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=001111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=010001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=010010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=010011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=010101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=010110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=010111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=011001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=011010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=011011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=011101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=011110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=011111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=100001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=100010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=100011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=100101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=100110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=100111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=101001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=101010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=101011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=101101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=101110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=101111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=110001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=110010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=110011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=110101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=110110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=110111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=111001(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=111010(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=111011(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=111101(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=111110(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+REPORT open objs=111111(p0 m0 p1 m1 pf bl) score=1 pfp=1 right=1: shows COLUPF
+INFO 320 open-case inputs reported (not asserted), 1753 checks
+PASS: 1753 checks
+prio: PASS: 1753 checks
+PASS tb_objpos (1369 checks)
+objpos: PASS tb_objpos (1369 checks)
+tia: ALL PASS
