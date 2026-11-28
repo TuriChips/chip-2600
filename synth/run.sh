@@ -19,7 +19,7 @@ S=$PDK_ROOT/sky130A/libs.ref/sky130_fd_sc_hd
 command -v openroad >/dev/null || { echo "synth: SKIP, openroad (OpenSTA) not installed. Committed synth/report.txt is from a local run."; exit 0; }
 python3 -I $D/sky130/filter_lib.py $S/lib/sky130_fd_sc_hd__tt_025C_1v80.lib $W/f.lib > $L/filter_lib.log
 # name:file[,file...] (first file is the top module's; z80_control instantiates z80_decode, so it takes both)
-BLOCKS=${BLOCKS:-"m6532:rtl/datapath/m6532.v tia_regs:rtl/control/tia_regs.v tia_hdec:rtl/control/tia_hdec.v tia_poly6:rtl/datapath/tia_poly6.v tia_objdec:rtl/datapath/tia_objdec.v tia_cx:rtl/control/tia_cx.v tia_inpt:rtl/control/tia_inpt.v tia_rd:rtl/control/tia_rd.v tia_pf:rtl/datapath/tia_pf.v tia_pgfx:rtl/datapath/tia_pgfx.v tia_mbgfx:rtl/datapath/tia_mbgfx.v"}
+BLOCKS=${BLOCKS:-"m6532:rtl/datapath/m6532.v tia_regs:rtl/control/tia_regs.v tia_hdec:rtl/control/tia_hdec.v tia_poly6:rtl/datapath/tia_poly6.v tia_objdec:rtl/datapath/tia_objdec.v tia_cx:rtl/control/tia_cx.v tia_inpt:rtl/control/tia_inpt.v tia_rd:rtl/control/tia_rd.v tia_pf:rtl/datapath/tia_pf.v tia_pgfx:rtl/datapath/tia_pgfx.v tia_mbgfx:rtl/datapath/tia_mbgfx.v tia_prio:rtl/control/tia_prio.v tia_objpos:rtl/datapath/tia_objpos.v,rtl/datapath/tia_poly6.v,rtl/datapath/tia_objdec.v"}
 
 run_one() { # name file-list
   local n=$1; shift; local src="$*"
